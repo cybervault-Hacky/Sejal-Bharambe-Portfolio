@@ -1,0 +1,259 @@
+/**
+ * Design Tokens - Premium Dark-First Visual System
+ * Phase 2: Sophisticated engineering portfolio design language
+ * 
+ * Principles: Professional → Technical → Premium → Modern → Clean
+ * Not: template, gaming, neon cyberpunk, overloaded gradients
+ */
+
+:root {
+  /* ============================================
+   * COLOR SYSTEM - Semantic, restrained, premium
+   * ============================================ */
+
+  /* Background - near-black deep charcoal, not pure #000 */
+  --background: 0 0% 4%;                    /* #0a0a0a - primary base */
+  --background-secondary: 0 0% 6%;          /* #0f0f0f - secondary layer */
+  --background-tertiary: 0 0% 8%;           /* #141414 - tertiary layer */
+  --background-elevated: 0 0% 10%;          /* #1a1a1a - elevated */
+
+  /* Surface - for cards, panels, glass */
+  --surface: 0 0% 8%;                       /* #141414 - default surface */
+  --surface-secondary: 0 0% 10%;            /* #1a1a1a - secondary */
+  --surface-elevated: 0 0% 12%;             /* #1f1f1f - elevated surface */
+  --surface-hover: 0 0% 14%;                /* #242424 - hover */
+  --surface-muted: 0 0% 9%;                 /* #171717 - muted */
+  --surface-foreground: 0 0% 98%;
+
+  /* Foreground - high contrast, readable */
+  --foreground: 0 0% 98%;                   /* #fafafa - primary text */
+  --foreground-secondary: 0 0% 72%;         /* #b8b8b8 - secondary text */
+  --foreground-tertiary: 0 0% 52%;          /* #858585 - tertiary */
+  --foreground-muted: 0 0% 42%;             /* #6b6b6b - muted */
+
+  /* Muted */
+  --muted: 0 0% 12%;                        /* #1f1f1f - muted bg */
+  --muted-foreground: 0 0% 60%;             /* #999 - muted text */
+  --muted-foreground-secondary: 0 0% 45%;   /* #737373 */
+
+  /* Border - subtle, elegant, not harsh */
+  --border: 0 0% 14%;                       /* #242424 - default */
+  --border-subtle: 0 0% 10%;                /* #1a1a1a - subtle */
+  --border-strong: 0 0% 20%;                /* #333 - strong */
+  --border-accent: 0 0% 18%;                /* #2e2e2e - accent border */
+
+  /* Accent - restrained, premium, not neon */
+  --accent: 0 0% 98%;                       /* #fafafa - primary accent (white) */
+  --accent-foreground: 0 0% 6%;             /* #0f0f0f - text on accent */
+  --accent-secondary: 0 0% 16%;             /* #292929 - secondary accent */
+  --accent-muted: 0 0% 12%;                 /* #1f1f1f - muted accent */
+  --accent-subtle: 0 0% 10%;                /* #1a1a1a - subtle */
+
+  /* Accent alternative - cool desaturated for subtle highlights */
+  --accent-cool: 240 5% 64%;                /* #9fa0a8 - cool gray */
+  --accent-cool-muted: 240 4% 14%;
+
+  /* Semantic */
+  --success: 142 76% 36%;                   /* #16a34a */
+  --success-muted: 142 40% 12%;
+  --warning: 38 92% 50%;                    /* #f59e0b */
+  --warning-muted: 38 40% 14%;
+  --error: 0 72% 51%;                       /* #ef4444 */
+  --error-muted: 0 40% 14%;
+
+  /* ============================================
+   * GLASSMORPHISM - Refined, strategic, not everywhere
+   * ============================================ */
+  --glass-background: 0 0% 8% / 0.72;       /* translucent */
+  --glass-background-strong: 0 0% 10% / 0.84;
+  --glass-background-subtle: 0 0% 8% / 0.48;
+  --glass-border: 0 0% 100% / 0.08;         /* subtle white border */
+  --glass-border-strong: 0 0% 100% / 0.12;
+  --glass-border-subtle: 0 0% 100% / 0.05;
+  --glass-shadow: 0 0% 0% / 0.24;
+  --glass-blur: 16px;
+  --glass-blur-strong: 24px;
+  --glass-blur-subtle: 12px;
+
+  /* ============================================
+   * RADIUS - Intentional, not everything pill
+   * ============================================ */
+  --radius-xs: 0.25rem;                     /* 4px - badges, tiny */
+  --radius-sm: 0.375rem;                    /* 6px - small */
+  --radius-md: 0.625rem;                    /* 10px - medium, default */
+  --radius-lg: 0.875rem;                    /* 14px - large, cards */
+  --radius-xl: 1rem;                        /* 16px - xl */
+  --radius-2xl: 1.25rem;                    /* 20px - 2xl */
+  --radius-full: 9999px;                    /* pill */
+
+  /* ============================================
+   * SHADOWS - Layered hierarchy, not decoration
+   * ============================================ */
+  --shadow-xs: 0 1px 2px hsl(0 0% 0% / 0.12);
+  --shadow-sm: 0 1px 3px hsl(0 0% 0% / 0.16), 0 1px 2px hsl(0 0% 0% / 0.12);
+  --shadow-md: 0 4px 6px hsl(0 0% 0% / 0.16), 0 2px 4px hsl(0 0% 0% / 0.12);
+  --shadow-lg: 0 10px 15px hsl(0 0% 0% / 0.20), 0 4px 6px hsl(0 0% 0% / 0.12);
+  --shadow-xl: 0 20px 25px hsl(0 0% 0% / 0.24), 0 8px 10px hsl(0 0% 0% / 0.12);
+  --shadow-2xl: 0 25px 50px hsl(0 0% 0% / 0.32);
+
+  /* Legacy aliases for Phase 1 compat */
+  --shadow-soft: var(--shadow-sm);
+  --shadow-medium: var(--shadow-md);
+  --shadow-large: var(--shadow-lg);
+
+  /* Glass & elevated shadows */
+  --shadow-glass: 0 4px 24px hsl(0 0% 0% / 0.20), 0 1px 2px hsl(0 0% 100% / 0.04) inset;
+  --shadow-elevated: 0 8px 32px hsl(0 0% 0% / 0.24), 0 2px 8px hsl(0 0% 0% / 0.16);
+  --shadow-glow: 0 0 0 1px hsl(0 0% 100% / 0.06), 0 4px 24px hsl(0 0% 0% / 0.20);
+  --shadow-glow-accent: 0 0 20px hsl(0 0% 100% / 0.08);
+
+  /* ============================================
+   * SPACING - Consistent scale
+   * ============================================ */
+  --spacing-3xs: 0.125rem;   /* 2px */
+  --spacing-2xs: 0.25rem;    /* 4px */
+  --spacing-xs: 0.5rem;      /* 8px */
+  --spacing-sm: 0.75rem;     /* 12px */
+  --spacing-md: 1rem;        /* 16px */
+  --spacing-lg: 1.5rem;      /* 24px */
+  --spacing-xl: 2rem;        /* 32px */
+  --spacing-2xl: 2.5rem;     /* 40px */
+  --spacing-3xl: 3rem;       /* 48px */
+  --spacing-4xl: 4rem;       /* 64px */
+  --spacing-5xl: 5rem;       /* 80px */
+  --spacing-6xl: 6rem;       /* 96px */
+  --spacing-7xl: 8rem;       /* 128px */
+  --spacing-8xl: 10rem;      /* 160px */
+
+  /* Section spacing */
+  --section-spacing: 6rem;          /* 96px - default section padding */
+  --section-spacing-sm: 4rem;       /* 64px - mobile */
+  --section-spacing-lg: 8rem;       /* 128px - large */
+
+  /* ============================================
+   * TYPOGRAPHY - Premium hierarchy
+   * ============================================ */
+  --font-sans: "Inter", "Geist", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+  --font-display: var(--font-sans);
+
+  /* Font sizes - fluid, not excessive */
+  --text-3xs: 0.625rem;     /* 10px - micro */
+  --text-2xs: 0.6875rem;    /* 11px - tiny label */
+  --text-xs: 0.75rem;       /* 12px - label, technical */
+  --text-sm: 0.8125rem;     /* 13px - small body */
+  --text-base: 0.9375rem;   /* 15px - body */
+  --text-md: 1rem;          /* 16px - base */
+  --text-lg: 1.125rem;      /* 18px - large body */
+  --text-xl: 1.25rem;       /* 20px - h6 */
+  --text-2xl: 1.5rem;       /* 24px - h5 */
+  --text-3xl: 1.875rem;     /* 30px - h4 */
+  --text-4xl: 2.25rem;      /* 36px - h3 */
+  --text-5xl: 2.75rem;      /* 44px - h2 */
+  --text-6xl: 3.5rem;       /* 56px - h1 */
+  --text-7xl: 4.5rem;       /* 72px - display */
+  --text-8xl: 6rem;         /* 96px - hero display */
+
+  /* Line heights */
+  --leading-none: 1;
+  --leading-tight: 1.15;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose: 1.8;
+
+  /* Letter spacing */
+  --tracking-tighter: -0.02em;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ============================================
+   * LAYOUT
+   * ============================================ */
+  --container-sm: 40rem;    /* 640px */
+  --container-md: 48rem;    /* 768px */
+  --container-lg: 64rem;    /* 1024px */
+  --container-xl: 80rem;    /* 1280px - default */
+  --container-2xl: 88rem;   /* 1408px */
+  --container-3xl: 96rem;   /* 1536px - wide */
+
+  --header-height: 4rem;    /* 64px */
+  --header-height-sm: 3.5rem; /* 56px mobile */
+
+  /* Z-index scale */
+  --z-background: -1;
+  --z-base: 0;
+  --z-content: 1;
+  --z-sticky: 10;
+  --z-overlay: 20;
+  --z-dropdown: 30;
+  --z-header: 40;
+  --z-modal: 50;
+  --z-tooltip: 60;
+  --z-toast: 70;
+
+  /* Transitions - short, smooth, no bounce */
+  --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+}
+
+/* Light theme - future, architecture compatible */
+[data-theme="light"] {
+  --background: 0 0% 98%;
+  --background-secondary: 0 0% 96%;
+  --background-tertiary: 0 0% 94%;
+  --background-elevated: 0 0% 92%;
+
+  --surface: 0 0% 100%;
+  --surface-secondary: 0 0% 98%;
+  --surface-elevated: 0 0% 96%;
+  --surface-hover: 0 0% 94%;
+  --surface-muted: 0 0% 97%;
+  --surface-foreground: 0 0% 8%;
+
+  --foreground: 0 0% 8%;
+  --foreground-secondary: 0 0% 32%;
+  --foreground-tertiary: 0 0% 52%;
+  --foreground-muted: 0 0% 62%;
+
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 45%;
+  --muted-foreground-secondary: 0 0% 60%;
+
+  --border: 0 0% 88%;
+  --border-subtle: 0 0% 92%;
+  --border-strong: 0 0% 80%;
+  --border-accent: 0 0% 84%;
+
+  --accent: 0 0% 8%;
+  --accent-foreground: 0 0% 98%;
+  --accent-secondary: 0 0% 92%;
+  --accent-muted: 0 0% 90%;
+  --accent-subtle: 0 0% 96%;
+
+  --glass-background: 0 0% 100% / 0.72;
+  --glass-background-strong: 0 0% 100% / 0.84;
+  --glass-background-subtle: 0 0% 100% / 0.48;
+  --glass-border: 0 0% 0% / 0.08;
+  --glass-border-strong: 0 0% 0% / 0.12;
+}
+
+/* Forced dark class for Tailwind */
+.dark {
+  color-scheme: dark;
+}
