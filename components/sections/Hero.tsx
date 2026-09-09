@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -12,11 +13,20 @@ import { Parallax } from "@/components/motion/Parallax";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { PageEntranceItem, PageEntranceStagger } from "@/components/motion/PageEntrance";
 import { ScaleIn } from "@/components/motion/ScaleIn";
+import { CanvasWrapper } from "@/components/3d/CanvasWrapper";
+import { HeroLoadingFallback } from "@/components/3d/LoadingFallback";
+
+// Dynamic import for 3D scene - client only, no SSR
+const HeroScene = dynamic(
+  () => import("@/components/3d/HeroScene").then((mod) => mod.HeroScene),
+  {
+    ssr: false,
+    loading: () => <HeroLoadingFallback />,
+  }
+);
 
 export function Hero() {
   const { isReducedMotion, isMobile } = useMotion();
-
-  // Split headline for staggered reveal - accessible
   const headlineWords = ["Software", "Developer"];
 
   return (
@@ -29,7 +39,6 @@ export function Hero() {
         <div className="absolute inset-0 bg-[hsl(var(--background))]" />
         <div className="absolute inset-0 gradient-mesh opacity-60" />
         <div className="absolute inset-0 grid-dot opacity-[0.02]" />
-        {/* Ambient glows with parallax */}
         <Parallax offset={20} direction="up" className="absolute top-[-20%] left-[10%]">
           <div className="h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,hsla(0,0%,100%,0.06),transparent_70%)] blur-[40px]" />
         </Parallax>
@@ -47,7 +56,6 @@ export function Hero() {
               staggerDelay={0.12}
               className="flex flex-col gap-8"
             >
-              {/* Status */}
               <PageEntranceItem delay={0} distance={16}>
                 <div className="flex items-center gap-3">
                   <Badge variant="glass" className="gap-2 pl-2 pr-3 py-1">
@@ -60,7 +68,6 @@ export function Hero() {
                 </div>
               </PageEntranceItem>
 
-              {/* Headline - staggered words */}
               <div className="flex flex-col gap-5">
                 <h1 className="text-[40px] font-bold tracking-[-0.02em] leading-[0.95] text-[hsl(var(--foreground))] md:text-[56px] lg:text-[64px] text-balance">
                   <span className="inline-flex flex-wrap gap-x-3">
@@ -90,7 +97,6 @@ export function Hero() {
                 </PageEntranceItem>
               </div>
 
-              {/* Meta */}
               <PageEntranceItem delay={0.55} distance={12}>
                 <div className="flex flex-wrap items-center gap-3 text-[13px]">
                   {["Full-Stack Development", "AI Agents & Solutions", "Modern Web Technologies"].map((label, idx) => (
@@ -112,7 +118,6 @@ export function Hero() {
                 </div>
               </PageEntranceItem>
 
-              {/* CTAs with magnetic */}
               <PageEntranceItem delay={0.65} distance={12}>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <Magnetic strength={0.15}>
@@ -151,7 +156,6 @@ export function Hero() {
                 </div>
               </PageEntranceItem>
 
-              {/* Experience indicator */}
               <PageEntranceItem delay={0.75} distance={12}>
                 <div className="mt-8 grid grid-cols-3 gap-6 border-t border-[hsl(var(--border-subtle))] pt-8 max-w-[520px]">
                   {[
@@ -182,97 +186,49 @@ export function Hero() {
               </PageEntranceItem>
             </PageEntranceStagger>
 
-            {/* Visual placeholder - future 3D with scale + parallax */}
+            {/* 3D Visual - HeroScene integrated */}
             <ScaleIn delay={0.5} duration={1.0} scale={0.97} className="relative lg:h-[560px] flex items-center justify-center">
               <Parallax offset={isMobile ? 0 : 10} direction="up" className="relative w-full max-w-[520px]">
-                <motion.div
-                  initial={isReducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.97, y: 16 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{
-                    duration: isReducedMotion ? 0.01 : 1.0,
-                    delay: isReducedMotion ? 0 : 0.6,
-                    ease: motionTokens.ease.out,
-                  }}
-                  whileHover={isReducedMotion || isMobile ? {} : { y: -2, scale: 1.01 }}
-                  className="relative w-full aspect-[4/3] lg:aspect-[4/5] rounded-[var(--radius-2xl)] overflow-hidden border border-[hsl(var(--border))] bg-[hsl(var(--surface))]/40 backdrop-blur-xl shadow-[var(--shadow-elevated)]"
-                >
-                  {/* Inner grid */}
-                  <div className="absolute inset-0 grid-dot opacity-[0.03]" />
-                  <div className="absolute inset-0 gradient-mesh opacity-40" />
-
-                  {/* Content */}
-                  <div className="relative h-full flex flex-col p-6 md:p-8">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="h-2.5 w-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
-                        <span className="h-2.5 w-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
-                        <span className="h-2.5 w-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
-                      </div>
-                      <span className="text-[10px] tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] font-medium px-2 py-1 rounded-full border border-[hsl(var(--border-subtle))] bg-[hsl(var(--surface))]">
-                        3D Showcase • Phase 4
-                      </span>
+                <div className="relative w-full aspect-[4/3] lg:aspect-[4/5] rounded-[var(--radius-2xl)] overflow-hidden">
+                  {/* Glass container preserved */}
+                  <div className="absolute inset-0 rounded-[var(--radius-2xl)] border border-[hsl(var(--border))] bg-[hsl(var(--surface))]/20 backdrop-blur-sm" />
+                  
+                  {/* Header preserved */}
+                  <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-5 border-b border-[hsl(var(--border-subtle))]/50">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[hsl(var(--border-strong))]" />
                     </div>
+                    <span className="text-[10px] tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] font-medium px-2 py-1 rounded-full border border-[hsl(var(--border-subtle))] bg-[hsl(var(--surface))]/80 backdrop-blur-sm">
+                      AI Core • Interactive
+                    </span>
+                  </div>
 
-                    <div className="flex flex-1 flex-col items-center justify-center gap-6 py-8">
-                      <motion.div
-                        initial={isReducedMotion ? {} : { scale: 0.9, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: isReducedMotion ? 0 : 0.8, duration: 0.5, ease: motionTokens.ease.out }}
-                        className="relative"
-                      >
-                        <div className="h-24 w-24 rounded-[var(--radius-xl)] bg-[hsl(var(--surface-elevated))] border border-[hsl(var(--border))] flex items-center justify-center shadow-[var(--shadow-lg)]">
-                          <div className="h-12 w-12 rounded-[var(--radius-md)] bg-[hsl(var(--foreground))] flex items-center justify-center text-[hsl(var(--background))] font-bold text-[16px]">
-                            SB
-                          </div>
-                        </div>
-                        <div className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-[hsl(var(--surface-elevated))] border border-[hsl(var(--border))] flex items-center justify-center">
-                          <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                        </div>
-                      </motion.div>
+                  {/* 3D Canvas */}
+                  <div className="absolute inset-0 pt-[52px]">
+                    <CanvasWrapper variant="hero" className="h-full w-full border-0 rounded-none bg-transparent shadow-none">
+                      <HeroScene />
+                    </CanvasWrapper>
+                  </div>
 
-                      <div className="text-center space-y-2">
-                        <p className="text-[14px] font-medium text-[hsl(var(--foreground))]">Interactive 3D Scene</p>
-                        <p className="text-[12px] leading-relaxed text-[hsl(var(--foreground-tertiary))] max-w-[260px]">
-                          Three.js • R3F • Drei • GLTF models will be integrated here. Premium interactive experience.
-                        </p>
-                      </div>
-
-                      <div className="flex gap-2">
-                        {["Three.js", "R3F", "Drei"].map((tech, i) => (
-                          <motion.span
-                            key={tech}
-                            initial={isReducedMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                              delay: isReducedMotion ? 0 : 0.9 + i * 0.05,
-                              duration: 0.3,
-                              ease: motionTokens.ease.out,
-                            }}
-                            className="text-[10px] px-2.5 py-1 rounded-full bg-[hsl(var(--surface-elevated))] border border-[hsl(var(--border))] text-[hsl(var(--foreground-tertiary))] font-mono"
-                          >
-                            {tech}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between text-[11px] text-[hsl(var(--foreground-tertiary))]">
-                      <span className="font-mono">portfolio • hero • v2</span>
-                      <span className="flex items-center gap-1.5">
-                        <span className="h-1 w-1 rounded-full bg-[hsl(var(--foreground-tertiary))]" />
-                        Ready for Phase 4
-                      </span>
-                    </div>
+                  {/* Footer preserved */}
+                  <div className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between p-4 border-t border-[hsl(var(--border-subtle))]/50 bg-[hsl(var(--surface))]/20 backdrop-blur-sm text-[11px] text-[hsl(var(--foreground-tertiary))]">
+                    <span className="font-mono">AI • ENGINEERING • CORE</span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
+                      Interactive • Drag to explore
+                    </span>
                   </div>
 
                   {/* Ambient glow inside */}
-                  <Parallax offset={isMobile ? 0 : 8} className="absolute top-[20%] right-[20%]">
-                    <div className="h-[200px] w-[200px] rounded-full bg-[radial-gradient(circle,hsla(0,0%,100%,0.06),transparent_70%)] blur-[20px] pointer-events-none" />
+                  <Parallax offset={isMobile ? 0 : 8} className="absolute top-[20%] right-[20%] pointer-events-none">
+                    <div className="h-[200px] w-[200px] rounded-full bg-[radial-gradient(circle,hsla(0,0%,100%,0.06),transparent_70%)] blur-[20px]" />
                   </Parallax>
-                </motion.div>
+                </div>
               </Parallax>
 
-              {/* Floating cards with subtle entrance */}
+              {/* Floating cards preserved */}
               <motion.div
                 initial={isReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16, x: 8 }}
                 animate={{ opacity: 1, y: 0, x: 0 }}
@@ -293,7 +249,7 @@ export function Hero() {
                 className="absolute -bottom-6 -left-6 hidden lg:flex h-14 w-[200px] rounded-[var(--radius-lg)] border border-[hsl(var(--border))] bg-[hsl(var(--surface))]/80 backdrop-blur-xl shadow-[var(--shadow-lg)] p-3 items-center gap-3"
               >
                 <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-[12px] text-[hsl(var(--foreground-secondary))]">Building premium experiences</span>
+                <span className="text-[12px] text-[hsl(var(--foreground-secondary))]">Real-time WebGL • R3F</span>
               </motion.div>
             </ScaleIn>
           </div>
