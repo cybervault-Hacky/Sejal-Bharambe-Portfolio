@@ -2,7 +2,7 @@
 
 Premium portfolio website for **Software Developer + AI Engineer** with 2+ years of professional experience.
 
-> **Phase 7 — AI Engineering & AI Agents Showcase** — Premium AI Engineering section: capability cards, conceptual integration flow, OpenAI/DeepSeek technical layer, Resumint AI project connection and AI Project Manager context. Data-driven from `data/ai.ts`, no fabricated AI claims, no API calls.
+> **Phase 8 — Premium Resume, Contact & Social Integration** — Professional "Let's connect" contact experience: direct email/phone/LinkedIn/GitHub channels (semantic `<address>`, no form, no backend), resume summary card with centralized facts and resume CTAs gated on a real asset, subroute-safe navigation. All contact data from the centralized profile values.
 
 ## Tech Stack
 
@@ -30,7 +30,8 @@ portfolio/
 │   ├── layout/            # Header (scroll state + active nav), Footer, Navigation (active + mobile)
 │   ├── sections/          # Hero (3D integrated), About, Experience (timeline + expandable), Projects (featured + filters), AIEngineering (showcase), Skills, Education, Showcase3D (interactive), Contact
 │   ├── projects/          # ProjectVisual (monogram/image identity), ProjectCard (default/featured), ProjectFilters (accessible), ProjectDetail (case-study view)
-│   └── ai/                # AICapabilityCard, AIProviderCard, AIWorkflow (conceptual flow), AIProjectCard (Resumint connection)
+│   ├── ai/                # AICapabilityCard, AIProviderCard, AIWorkflow (conceptual flow), AIProjectCard (Resumint connection)
+│   └── contact/           # ContactItem (reusable icon/label/value/action channel card), ResumeCard (facts + gated resume CTAs)
 │   ├── ui/                # Button (primary/secondary/glass...), Card (glass/elevated/interactive), Badge, Container, Section, SectionHeading, GlassSurface, Divider, IconButton, Link, Background (AmbientGlow/Grid/Noise/GradientMesh)
 │   ├── motion/            # MotionProvider (Lenis single instance + reduced-motion), FadeIn, Reveal, Stagger, MotionSection, ScaleIn, SlideIn, Parallax, Magnetic, ScrollProgress, PageEntrance
 │   └── 3d/                # CanvasWrapper (client-only, DPR, WebGL check), HeroScene, ShowcaseScene, CoreObject (AI Engineering Core), TechOrbit (rings/nodes/lines), Lighting, CameraRig, PointerRig, ScrollRig, Environment, ModelLoader (GLB/GLTF), ModelPlaceholder, ErrorBoundary, LoadingFallback
@@ -182,7 +183,8 @@ Frontend-only, no backend/database/auth. Deployable to Vercel (recommended), Net
 - **Phase 5 — Content:** Real CV data — profile, hero, about, experience (4 roles), projects (Sophora, AquaBlouse, Resumint), AI Engineering (real work areas, OpenAI/DeepSeek APIs), skills (self-assessed proficiency), education, certifications, achievements, real contact + social links, SEO content foundation — COMPLETE
 - **Phase 6 — Advanced Projects & Experience Showcase:** Featured project treatment (Resumint), premium project cards (category/description/technology/capabilities), accessible category filters (All/AI/E-Learning/E-Commerce), static project case-study routes /projects/[slug] (metadata, prev/next, not-found boundary), ProjectVisual monogram system (image-ready), experience timeline with role markers + project context + expandable responsibilities, subroute-safe anchor navigation — COMPLETE
 - **Phase 7 — AI Engineering & AI Agents Showcase:** AI Engineering section redesign — headline + conceptual integration flow (CSS, reduced-motion aware), 4 capability cards with custom SVG icons, OpenAI/DeepSeek technical layer, Resumint AI project card (links to /projects/resumint), AI Project Manager current-role card (links to #experience, subroute-safe), data-driven from data/ai.ts — COMPLETE
-- **Phase 8+ — NEXT:** resume system, contact service, final SEO/performance/a11y audits, production deployment
+- **Phase 8 — Premium Resume, Contact & Social Integration:** "Let's connect" contact experience — direct Email/Phone/LinkedIn/GitHub channels (mailto:/tel:/safe external links, semantic `<address>`, no form/backend), ResumeCard with centralized quick facts (current role, organization, education, location) and View/Download CTAs that render ONLY when a real resume PDF exists (drop the file into public/resume/ and set profile.resume), gated Resume link in desktop + mobile navigation, emoji icons replaced with custom SVG, no fabricated resume asset — COMPLETE
+- **Phase 9+ — NEXT:** final SEO/performance/a11y audits, production deployment
 
 ## Accessibility
 
@@ -202,4 +204,4 @@ Private portfolio — All rights reserved.
 
 ---
 
-**Phase 7 Status:** AI Engineering showcase integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Presentation only — no AI API calls, no API keys, no env changes, no backend. No fabricated AI claims (no model names, no invented agents, no metrics).
+**Phase 8 Status:** Resume/Contact/Social experience integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Direct links only — no contact form, no backend, no social APIs. No fake resume file created; resume CTAs are gated on `profile.resume` (currently unset, UI ready for the real CV PDF in `public/resume/`).

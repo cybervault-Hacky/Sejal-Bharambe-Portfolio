@@ -38,6 +38,20 @@ export function resolveAnchorHash(hash: string, pathname: string): string {
 }
 
 /**
+ * Derive a short display value from a link href.
+ * "https://www.linkedin.com/in/x" -> "linkedin.com/in/x"
+ * "mailto:a@b.com" -> "a@b.com"
+ * Keeps contact presentation data-driven from the centralized profile
+ * values instead of duplicating display strings in components.
+ */
+export function linkDisplayValue(href: string): string {
+  return href
+    .replace(/^mailto:/i, "")
+    .replace(/^https?:\/\//i, "")
+    .replace(/^www\./i, "");
+}
+
+/**
  * Delay utility for animation readiness
  */
 export function delay(ms: number): Promise<void> {

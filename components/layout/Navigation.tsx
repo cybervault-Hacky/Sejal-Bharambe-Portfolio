@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { resolveAnchorHash } from "@/lib/utils";
-import { navigationLinks, socialLinks } from "@/data/profile";
+import { navigationLinks, socialLinks, profile } from "@/data/profile";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMotion } from "@/components/motion/MotionProvider";
 import { motionTokens } from "@/lib/motion";
@@ -74,6 +74,25 @@ export function Navigation({
           </Link>
         );
       })}
+
+      {/* Resume CTA - only when a real resume asset exists */}
+      {profile.resume && (
+        <Link
+          href={profile.resume}
+          onClick={onLinkClick}
+          className={cn(
+            "group relative ml-1 inline-flex items-center gap-2 rounded-[var(--radius-md)] px-3 py-2 text-[13px] font-medium tracking-[-0.01em]",
+            "border-l border-l-[hsl(var(--border-subtle))] pl-4",
+            "text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--surface))]/80",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]"
+          )}
+        >
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Resume
+        </Link>
+      )}
     </nav>
   );
 }
@@ -214,6 +233,34 @@ export function MobileNavigation({
                     </motion.div>
                   );
                 })}
+
+                {/* Resume - only when a real resume asset exists */}
+                {profile.resume && (
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 12 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: isReducedMotion ? 0.01 : 0.4,
+                          ease: motionTokens.ease.out,
+                        },
+                      },
+                    }}
+                  >
+                    <a
+                      href={profile.resume}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 rounded-[var(--radius-lg)] px-4 py-3 text-[16px] font-medium tracking-tight text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--surface))]/60 border-t border-[hsl(var(--border-subtle))] mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] w-full"
+                    >
+                      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      Resume
+                    </a>
+                  </motion.div>
+                )}
               </motion.div>
 
               <motion.div
