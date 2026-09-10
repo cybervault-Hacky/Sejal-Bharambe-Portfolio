@@ -79,9 +79,9 @@ export function Footer({ className }: FooterProps) {
             transition={{ duration: isReducedMotion ? 0.01 : 0.5, delay: isReducedMotion ? 0 : 0.1, ease: motionTokens.ease.out }}
             className="flex flex-col gap-4"
           >
-            <h4 className="text-[11px] font-medium tracking-widest uppercase text-[hsl(var(--foreground-tertiary))]">
+            <h3 className="text-[11px] font-medium tracking-widest uppercase text-[hsl(var(--foreground-tertiary))]">
               Navigation
-            </h4>
+            </h3>
             <nav className="flex flex-col gap-2.5" aria-label="Footer navigation">
               {footerNav.map((link) => (
                 <Link
@@ -103,9 +103,9 @@ export function Footer({ className }: FooterProps) {
             transition={{ duration: isReducedMotion ? 0.01 : 0.5, delay: isReducedMotion ? 0 : 0.15, ease: motionTokens.ease.out }}
             className="flex flex-col gap-4"
           >
-            <h4 className="text-[11px] font-medium tracking-widest uppercase text-[hsl(var(--foreground-tertiary))]">
+            <h3 className="text-[11px] font-medium tracking-widest uppercase text-[hsl(var(--foreground-tertiary))]">
               Connect
-            </h4>
+            </h3>
             <div className="flex flex-col gap-2.5">
               {socialLinks.map((item) => (
                 <a

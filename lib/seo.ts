@@ -4,9 +4,8 @@
  * - Factual, route-appropriate titles and descriptions
  * - Canonical URLs are relative paths resolved against metadataBase
  *   (SITE_CONFIG.url) - no duplicated or dev-environment URLs
- * - No image references while no real branded OG asset exists
- *   (a broken /images/og-image.jpg reference was removed in Phase 9;
- *   adding a real branded OG image is a Phase 10 asset task)
+ * - Branded OG image: /images/og-image.jpg (1200x630, generated from
+ *   factual portfolio information only - no metrics, logos, or claims)
  */
 
 import type { Metadata } from "next";
@@ -60,11 +59,21 @@ export function constructMetadata({
       title,
       description,
       siteName: SITE_CONFIG.name,
+      images: [
+        {
+          // Relative - resolved against metadataBase (SITE_CONFIG.url)
+          url: "/images/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: SITE_CONFIG.title,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: ["/images/og-image.jpg"],
     },
     icons: {
       // Favicon is provided by app/icon.svg (Next.js file convention)
