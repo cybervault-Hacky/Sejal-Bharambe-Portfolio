@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Navigation, MobileNavigation } from "./Navigation";
-import { Button } from "@/components/ui/Button";
 import { ScrollProgressInHeader } from "@/components/motion/ScrollProgress";
 import { useActiveSection, useMotion } from "@/components/motion/MotionProvider";
 import { cn } from "@/lib/utils";
@@ -14,7 +13,7 @@ export interface HeaderProps {
   className?: string;
 }
 
-const sectionIds = ["home", "about", "experience", "projects", "agents", "skills", "contact"];
+const sectionIds = ["home", "about", "experience", "projects", "ai", "skills", "contact"];
 
 export function Header({ className }: HeaderProps) {
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -92,17 +91,23 @@ export function Header({ className }: HeaderProps) {
             whileHover={isReducedMotion ? {} : { y: -1 }}
             whileTap={isReducedMotion ? {} : { scale: 0.98 }}
           >
-            <Button variant="primary" size="sm" className="rounded-full px-5">
+            <a
+              href="#contact"
+              className="inline-flex h-8 items-center justify-center rounded-full px-5 text-[13px] font-medium bg-[hsl(var(--foreground))] text-[hsl(var(--background))] hover:bg-[hsl(var(--foreground))/90] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]"
+            >
               Contact
-            </Button>
+            </a>
           </motion.div>
         </div>
 
         {/* Mobile */}
         <div className="flex md:hidden items-center gap-3">
-          <Button variant="primary" size="sm" className="rounded-full h-8 px-4 text-[12px]">
+          <a
+            href="#contact"
+            className="inline-flex h-8 items-center justify-center rounded-full px-4 text-[12px] font-medium bg-[hsl(var(--foreground))] text-[hsl(var(--background))] hover:bg-[hsl(var(--foreground))/90] shadow-[var(--shadow-sm)] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]"
+          >
             Contact
-          </Button>
+          </a>
           <MobileNavigation activeSection={activeSection} />
         </div>
       </Container>

@@ -3,11 +3,11 @@
 import * as React from "react";
 import dynamic from "next/dynamic";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { profile } from "@/data/profile";
 import { motion } from "framer-motion";
 import { motionTokens } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 import { useMotion } from "@/components/motion/MotionProvider";
 import { Parallax } from "@/components/motion/Parallax";
 import { Magnetic } from "@/components/motion/Magnetic";
@@ -25,9 +25,32 @@ const HeroScene = dynamic(
   }
 );
 
+const ctaBase =
+  "inline-flex h-11 items-center justify-center gap-2 rounded-full px-7 text-[14px] font-medium tracking-[-0.01em] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]";
+
+const ctaVariants = {
+  primary:
+    "bg-[hsl(var(--foreground))] text-[hsl(var(--background))] hover:bg-[hsl(var(--foreground))/90] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] hover:translate-y-[-1px] active:translate-y-[0px]",
+  secondary:
+    "bg-[hsl(var(--surface-elevated))] text-[hsl(var(--foreground))] border border-[hsl(var(--border))] hover:bg-[hsl(var(--surface-hover))] hover:border-[hsl(var(--border-strong))] shadow-[var(--shadow-xs)] hover:shadow-[var(--shadow-sm)] active:scale-[0.98]",
+} as const;
+
+function HeroCta({
+  href,
+  variant,
+  children,
+}: {
+  href: string;
+  variant: keyof typeof ctaVariants;
+  children: React.ReactNode;
+}) {
+  return <a href={href} className={cn(ctaBase, ctaVariants[variant])}>{children}</a>;
+}
+
 export function Hero() {
   const { isReducedMotion, isMobile } = useMotion();
   const headlineWords = ["Software", "Developer"];
+  const currentRole = "AI Project Manager · Indiation Innovation";
 
   return (
     <section
@@ -57,10 +80,10 @@ export function Hero() {
               className="flex flex-col gap-8"
             >
               <PageEntranceItem delay={0} distance={16}>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <Badge variant="glass" className="gap-2 pl-2 pr-3 py-1">
                     <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[11px] tracking-wide">Available for new opportunities</span>
+                    <span className="text-[11px] tracking-wide">{currentRole}</span>
                   </Badge>
                   <span className="hidden sm:inline-flex text-[11px] tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] font-medium">
                     {profile.yearsOfExperience}+ Years Experience
@@ -84,22 +107,23 @@ export function Hero() {
                   </span>
                   <PageEntranceItem delay={0.35} distance={16} className="block">
                     <span className="block text-[hsl(var(--foreground-secondary))] font-medium tracking-[-0.01em] mt-1">
-                      + AI Engineer
+                      + {profile.titleSecondary}
                     </span>
                   </PageEntranceItem>
                 </h1>
 
                 <PageEntranceItem delay={0.45} distance={16}>
                   <p className="max-w-[560px] text-[17px] leading-relaxed text-[hsl(var(--foreground-secondary))] md:text-[18px] text-pretty">
-                    Building production-ready full-stack applications and AI-powered solutions.
-                    Focused on clean architecture, premium user experiences, and intelligent systems.
+                    Building scalable software experiences and AI-powered products
+                    — {profile.yearsOfExperience}+ years across full-stack, healthcare,
+                    e-commerce and workflow applications.
                   </p>
                 </PageEntranceItem>
               </div>
 
               <PageEntranceItem delay={0.55} distance={12}>
                 <div className="flex flex-wrap items-center gap-3 text-[13px]">
-                  {["Full-Stack Development", "AI Agents & Solutions", "Modern Web Technologies"].map((label, idx) => (
+                  {["Full-Stack Development", "AI Project Management", "AI-Powered Applications"].map((label, idx) => (
                     <motion.span
                       key={label}
                       initial={isReducedMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
@@ -121,7 +145,7 @@ export function Hero() {
               <PageEntranceItem delay={0.65} distance={12}>
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <Magnetic strength={0.15}>
-                    <Button variant="primary" size="lg" className="rounded-full px-7 group">
+                    <HeroCta href="#projects" variant="primary">
                       View Projects
                       <motion.svg
                         width="16"
@@ -132,16 +156,25 @@ export function Hero() {
                         initial={isReducedMotion ? {} : { x: 0 }}
                         whileHover={isReducedMotion ? {} : { x: 2 }}
                         transition={{ duration: 0.2 }}
+                        aria-hidden="true"
                       >
                         <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </motion.svg>
-                    </Button>
+                    </HeroCta>
                   </Magnetic>
-                  <Magnetic strength={0.12}>
-                    <Button variant="secondary" size="lg" className="rounded-full px-7">
-                      Download Resume
-                    </Button>
-                  </Magnetic>
+                  {profile.resume ? (
+                    <Magnetic strength={0.12}>
+                      <HeroCta href={profile.resume} variant="secondary">
+                        Download Resume
+                      </HeroCta>
+                    </Magnetic>
+                  ) : (
+                    <Magnetic strength={0.12}>
+                      <HeroCta href="#contact" variant="secondary">
+                        Get in touch
+                      </HeroCta>
+                    </Magnetic>
+                  )}
                   <div className="hidden sm:flex items-center gap-3 pl-4">
                     <div className="h-8 w-px bg-[hsl(var(--border))]" />
                     <motion.span
@@ -161,7 +194,7 @@ export function Hero() {
                   {[
                     { value: `${profile.yearsOfExperience}+`, label: "Years Experience" },
                     { value: "Full-Stack", label: "Development" },
-                    { value: "AI", label: "Engineering" },
+                    { value: "AI", label: "Project Management" },
                   ].map((stat, idx) => (
                     <motion.div
                       key={stat.label}
@@ -237,8 +270,8 @@ export function Hero() {
               >
                 <div className="h-8 w-8 rounded-[var(--radius-md)] bg-[hsl(var(--foreground))] text-[hsl(var(--background))] flex items-center justify-center text-[11px] font-bold">AI</div>
                 <div className="flex flex-col">
-                  <span className="text-[12px] font-medium text-[hsl(var(--foreground))] leading-none">AI Agents</span>
-                  <span className="text-[10px] text-[hsl(var(--foreground-tertiary))]">Intelligent systems</span>
+                  <span className="text-[12px] font-medium text-[hsl(var(--foreground))] leading-none">AI Engineering</span>
+                  <span className="text-[10px] text-[hsl(var(--foreground-tertiary))]">OpenAI • DeepSeek</span>
                 </div>
               </motion.div>
 

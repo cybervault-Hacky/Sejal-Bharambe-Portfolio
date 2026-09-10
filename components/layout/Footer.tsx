@@ -4,7 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
-import { profile } from "@/data/profile";
+import { profile, socialLinks, navigationLinks } from "@/data/profile";
+import { getCurrentRole } from "@/data/experience";
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/motion/Reveal";
 import { useMotion } from "@/components/motion/MotionProvider";
@@ -16,8 +17,10 @@ export interface FooterProps {
 
 export function Footer({ className }: FooterProps) {
   const currentYear = new Date().getFullYear();
-  const displayName = profile.name !== "TODO: Name from CV" ? profile.name : "Sejal Bharambe";
+  const currentRole = getCurrentRole();
   const { isReducedMotion } = useMotion();
+
+  const footerNav = navigationLinks.filter((link) => link.href !== "#home");
 
   return (
     <footer
@@ -45,17 +48,22 @@ export function Footer({ className }: FooterProps) {
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--radius-md)] bg-[hsl(var(--foreground))] text-[hsl(var(--background))] text-[13px] font-bold">
                 SB
               </span>
-              <span className="text-[14px] font-semibold tracking-tight text-[hsl(var(--foreground))]">
-                {displayName}
-              </span>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[14px] font-semibold tracking-tight text-[hsl(var(--foreground))]">
+                  {profile.name}
+                </span>
+                <span className="text-[11px] font-medium tracking-wide text-[hsl(var(--foreground-tertiary))]">
+                  AI Project Manager · Full Stack Developer
+                </span>
+              </div>
             </div>
             <p className="max-w-[320px] text-[14px] leading-relaxed text-[hsl(var(--foreground-secondary))]">
-              Software Developer + AI Engineer with {profile.yearsOfExperience}+ years building full-stack products and AI-powered solutions.
+              Building scalable software and AI-powered experiences.
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
               <span className="text-[12px] text-[hsl(var(--foreground-tertiary))] tracking-wide">
-                Available for opportunities
+                {currentRole ? `${currentRole.role} — ${currentRole.company}` : profile.cvTitle}
               </span>
             </div>
           </motion.div>
@@ -72,18 +80,11 @@ export function Footer({ className }: FooterProps) {
               Navigation
             </h4>
             <nav className="flex flex-col gap-2.5" aria-label="Footer navigation">
-              {[
-                { label: "About", href: "#about" },
-                { label: "Experience", href: "#experience" },
-                { label: "Projects", href: "#projects" },
-                { label: "AI Agents", href: "#agents" },
-                { label: "Skills", href: "#skills" },
-                { label: "Contact", href: "#contact" },
-              ].map((link) => (
+              {footerNav.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-[14px] text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] transition-colors duration-200 w-fit link-underline"
+                  className="text-[14px] text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] transition-colors duration-200 w-fit link-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] rounded-sm"
                 >
                   {link.label}
                 </Link>
@@ -103,19 +104,15 @@ export function Footer({ className }: FooterProps) {
               Connect
             </h4>
             <div className="flex flex-col gap-2.5">
-              {[
-                { label: "GitHub", href: profile.github !== "TODO: GitHub URL" ? profile.github : "#" },
-                { label: "LinkedIn", href: profile.linkedin !== "TODO: LinkedIn URL" ? profile.linkedin : "#" },
-                { label: "Email", href: profile.email !== "TODO: Email" ? `mailto:${profile.email}` : "#" },
-              ].map((item) => (
+              {socialLinks.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-[14px] text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] transition-colors duration-200 inline-flex items-center gap-2 w-fit group"
-                  target={item.label !== "Email" ? "_blank" : undefined}
-                  rel={item.label !== "Email" ? "noopener noreferrer" : undefined}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
+                  className="text-[14px] text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] transition-colors duration-200 inline-flex items-center gap-2 w-fit group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] rounded-sm"
                 >
-                  <span className="h-1 w-1 rounded-full bg-[hsl(var(--foreground-tertiary))] group-hover:bg-[hsl(var(--foreground))] transition-colors" />
+                  <span className="h-1 w-1 rounded-full bg-[hsl(var(--foreground-tertiary))] group-hover:bg-[hsl(var(--foreground))] transition-colors" aria-hidden="true" />
                   {item.label}
                 </a>
               ))}
@@ -130,7 +127,7 @@ export function Footer({ className }: FooterProps) {
                 Location
               </p>
               <p className="text-[13px] text-[hsl(var(--foreground-secondary))] mt-1">
-                {profile.location !== "TODO: Location" ? profile.location : "Available worldwide • Remote"}
+                {profile.location}
               </p>
             </motion.div>
           </motion.div>
@@ -138,12 +135,12 @@ export function Footer({ className }: FooterProps) {
 
         <Reveal delay={0.2} className="mt-12 flex flex-col gap-4 border-t border-[hsl(var(--border-subtle))] pt-8 md:flex-row md:items-center md:justify-between">
           <p className="text-[12px] text-[hsl(var(--foreground-tertiary))]">
-            © {currentYear} {displayName}. Built with Next.js, Tailwind CSS, Framer Motion, Lenis.
+            © {currentYear} {profile.name}. Built with Next.js, Tailwind CSS, Framer Motion, Lenis.
           </p>
           <div className="flex items-center gap-4 text-[11px] text-[hsl(var(--foreground-tertiary))]">
             <span className="inline-flex items-center gap-1.5">
-              <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" />
-              Phase 3 • Animation System
+              <span className="h-1 w-1 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
+              Full-Stack + AI
             </span>
             <span className="hidden sm:inline">•</span>
             <span>Frontend-only • No tracking</span>

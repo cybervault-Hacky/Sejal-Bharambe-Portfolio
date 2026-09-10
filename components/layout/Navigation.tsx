@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { navigationLinks } from "@/data/profile";
+import { navigationLinks, socialLinks } from "@/data/profile";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMotion } from "@/components/motion/MotionProvider";
 import { motionTokens } from "@/lib/motion";
@@ -221,14 +221,18 @@ export function MobileNavigation({
                 <p className="text-[11px] tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] font-medium mb-3">
                   Connect
                 </p>
-                <div className="flex gap-3">
-                  {["GitHub", "LinkedIn", "Email"].map((item) => (
-                    <span
-                      key={item}
-                      className="text-sm text-[hsl(var(--foreground-secondary))] px-3 py-1.5 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--surface))]"
+                <div className="flex flex-wrap gap-3">
+                  {socialLinks.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
+                      className="text-sm text-[hsl(var(--foreground-secondary))] px-3 py-1.5 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--surface))] hover:text-[hsl(var(--foreground))] hover:border-[hsl(var(--border-strong))] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))]"
                     >
-                      {item}
-                    </span>
+                      {item.label}
+                    </a>
                   ))}
                 </div>
               </motion.div>

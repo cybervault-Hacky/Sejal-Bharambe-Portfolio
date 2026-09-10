@@ -1,19 +1,20 @@
 /**
  * Site constants and configuration
  * Centralized for easy maintenance
+ * Links populated from the CV (Phase 5)
  */
 
 export const SITE_CONFIG = {
   name: "Sejal Bharambe Portfolio",
   title: "Sejal Bharambe — Software Developer + AI Engineer",
   description:
-    "Software Developer with 2+ years of professional experience building full-stack applications and AI-powered solutions.",
+    "AI Project Manager and Full Stack Developer with 2+ years of experience building full-stack and AI-powered applications with Java, Spring Boot, React, Next.js and TypeScript.",
   url: "https://sejalbharambe.dev",
   ogImage: "/images/og-image.jpg",
   links: {
-    github: "TODO",
-    linkedin: "TODO",
-    email: "TODO",
+    github: "https://github.com/sejal-bharambe",
+    linkedin: "https://www.linkedin.com/in/sejal-bharambe-5988a720b",
+    email: "sejalbharambe2003@gmail.com",
   },
 } as const;
 

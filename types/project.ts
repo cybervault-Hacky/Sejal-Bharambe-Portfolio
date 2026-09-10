@@ -34,8 +34,8 @@ export interface Project {
   liveUrl?: string;
   /** Featured on homepage */
   featured: boolean;
-  /** Image path - relative to /public/images */
-  image: string;
+  /** Image path - relative to /public/images. Optional - no fake screenshots */
+  image?: string;
   /** Optional additional images */
   images?: string[];
   /** Year or date string */

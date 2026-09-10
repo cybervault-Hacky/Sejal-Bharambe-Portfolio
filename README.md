@@ -2,7 +2,7 @@
 
 Premium portfolio website for **Software Developer + AI Engineer** with 2+ years of professional experience.
 
-> **Phase 4 — Premium 3D Interactive Experience** — Interactive engineering visualization with Three.js + R3F + Drei, integrated with premium UI and motion system.
+> **Phase 5 — Real CV Data & Complete Portfolio Content** — Real profile, experience, projects, skills, education, certifications, achievements, AI engineering positioning and contact details, all data-driven from `data/`.
 
 ## Tech Stack
 
@@ -27,13 +27,13 @@ portfolio/
 │   └── not-found.tsx
 ├── components/
 │   ├── layout/            # Header (scroll state + active nav), Footer, Navigation (active + mobile)
-│   ├── sections/          # Hero (3D integrated), About, Experience, Projects, Agents, Skills, Showcase3D (interactive), Contact
+│   ├── sections/          # Hero (3D integrated), About, Experience, Projects, AIEngineering, Skills, Education, Showcase3D (interactive), Contact
 │   ├── ui/                # Button (primary/secondary/glass...), Card (glass/elevated/interactive), Badge, Container, Section, SectionHeading, GlassSurface, Divider, IconButton, Link, Background (AmbientGlow/Grid/Noise/GradientMesh)
 │   ├── motion/            # MotionProvider (Lenis single instance + reduced-motion), FadeIn, Reveal, Stagger, MotionSection, ScaleIn, SlideIn, Parallax, Magnetic, ScrollProgress, PageEntrance
 │   └── 3d/                # CanvasWrapper (client-only, DPR, WebGL check), HeroScene, ShowcaseScene, CoreObject (AI Engineering Core), TechOrbit (rings/nodes/lines), Lighting, CameraRig, PointerRig, ScrollRig, Environment, ModelLoader (GLB/GLTF), ModelPlaceholder, ErrorBoundary, LoadingFallback
-├── data/                  # profile, projects, experience, skills, agents (TODO, no fake data)
+├── data/                  # profile, projects, experience, skills, ai, credentials (real CV data)
 ├── lib/                   # utils, constants, seo, motion tokens (duration/ease/spring/stagger/distance/scale + lenisConfig)
-├── types/                 # Strict interfaces: profile, project, experience, skill, agent
+├── types/                 # Strict interfaces: profile, project, experience, skill, ai, credentials, common (SocialLink)
 ├── public/
 │   ├── images/            # Portfolio images
 │   ├── models/            # GLB/GLTF models (architecture ready, no fake assets)
@@ -123,11 +123,13 @@ Central precision object: geometric core + layered translucent shell + orbital r
 
 ## Data Models
 
-- **Profile:** name, title, summary, location, email, github, linkedin, resume, yearsOfExperience (TODO)
-- **Project:** id, name, description, category, technologies, highlights, githubUrl, liveUrl, featured, image (TODO)
-- **Experience:** company, role, startDate, endDate, description, achievements, technologies (TODO)
-- **Skill:** name, category, icon, level (TODO)
-- **AI Agent:** id, name, description, capabilities, technologies, tools, architecture, githubUrl, liveUrl, featured (TODO)
+- **Profile:** name, title, titleSecondary, cvTitle, summary, location, email, phone, github, linkedin, resume (Phase 8), yearsOfExperience
+- **SiteMetadata / NavigationLinks / SocialLinks:** SEO, nav and real social links (GitHub, LinkedIn, Email)
+- **Project:** id, name, description, category, technologies, highlights, githubUrl, liveUrl, featured, image (optional - no fake screenshots), year, status
+- **Experience:** company, role, focus (project context), startDate, endDate, description, achievements, technologies, type
+- **Skill:** name, category, proficiency (self-assessed 0-100), featured — grouped via `skillGroupOrder`
+- **AIFocusArea:** id, title, description, technologies, context — real AI work areas (replaces Phase 1 Agent placeholder; no invented agent names)
+- **Education / Certification / Achievement:** degrees, certifications and milestones
 - No fake data invented
 
 ## Development Setup
@@ -172,9 +174,9 @@ Frontend-only, no backend/database/auth. Deployable to Vercel (recommended), Net
 - **Phase 1 — Foundation:** Next.js 15 + TS strict + Tailwind + ESLint + architecture + data models + SEO + a11y + responsive + performance principles — COMPLETE
 - **Phase 2 — Premium Visual System:** Dark-first near-black, glassmorphism strategic, typography hierarchy, color/spacing/container/border/shadow tokens, navigation/footer redesign, button/card/badge/section systems, hero foundation, background system (ambient glow/grid/noise/gradient mesh), micro-interactions, responsive, accessible — COMPLETE `b200066`
 - **Phase 3 — Animation & Interaction:** Framer Motion + Lenis, central motion architecture, page entrance, hero motion, section reveal, heading stagger, card stagger, project hover, glass depth, button micro-interactions, magnetic 4-8px, nav scroll state + active detection, mobile nav animation, scroll progress 1px, anchor scrolling, parallax -10→10, reduced-motion, mobile optimized, no layout shift — COMPLETE `ea6837e`
-- **Phase 4 — 3D Experience:** Three.js + R3F + Drei, isolated client-only canvas, WebGL detection/fallback/loading/error boundary, AI Engineering Core (icosahedron core + translucent shell + orbital rings + technical nodes + connection lines), materials Standard/Physical, lighting soft key/fill/rim/ambient, camera rig responsive smooth, pointer rig ±0.12 rad damping, scroll rig subtle, hero + showcase scenes, mobile reduction DPR 1.25 no pointer, reduced-motion static, performance budget, no post-processing, no generic template, matches visual language — CURRENT
-- **Phase 5 — Content:** Projects, experience, skills, agents from CV, resume, contact service — NEXT
-- **Phase 6 — Polish:** SEO, performance audit, a11y audit, analytics
+- **Phase 4 — 3D Experience:** Three.js + R3F + Drei, isolated client-only canvas, WebGL detection/fallback/loading/error boundary, AI Engineering Core (icosahedron core + translucent shell + orbital rings + technical nodes + connection lines), materials Standard/Physical, lighting soft key/fill/rim/ambient, camera rig responsive smooth, pointer rig ±0.12 rad damping, scroll rig subtle, hero + showcase scenes, mobile reduction DPR 1.25 no pointer, reduced-motion static, performance budget, no post-processing, no generic template, matches visual language — COMPLETE
+- **Phase 5 — Content:** Real CV data — profile, hero, about, experience (4 roles), projects (Sophora, AquaBlouse, Resumint), AI Engineering (real work areas, OpenAI/DeepSeek APIs), skills (self-assessed proficiency), education, certifications, achievements, real contact + social links, SEO content foundation — COMPLETE
+- **Phase 6 — Polish:** SEO, performance audit, a11y audit, analytics — NEXT
 
 ## Accessibility
 
@@ -194,4 +196,4 @@ Private portfolio — All rights reserved.
 
 ---
 
-**Phase 4 Status:** 3D interactive experience complete, verified via `npm run dev`, `npm run build`, `npm run lint`, `npm audit`. Ready for Phase 5.
+**Phase 5 Status:** Real CV content integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Data-driven, no fabricated facts. Resume CTA architecture ready for the real CV PDF (Phase 8).

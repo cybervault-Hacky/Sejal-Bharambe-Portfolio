@@ -1,32 +1,29 @@
 /**
  * Skill type definitions
- * Supports categorization and filtering
+ * Supports categorization and self-assessed proficiency
  */
 
 export type SkillCategory =
+  | "language"
   | "frontend"
   | "backend"
-  | "language"
-  | "ai"
   | "database"
+  | "auth"
   | "devops"
   | "tools"
-  | "design"
+  | "ai"
   | "other";
-
-export type SkillLevel = "beginner" | "intermediate" | "advanced" | "expert";
 
 export interface Skill {
   /** Skill name - e.g. "React" */
   name: string;
   /** Category for grouping */
   category: SkillCategory;
-  /** Icon identifier - maps to icon component or image */
-  icon: string;
-  /** Proficiency level */
-  level: SkillLevel;
-  /** Optional years of experience with this skill */
-  years?: number;
+  /**
+   * Self-assessed proficiency (0-100)
+   * NOT a standardized or certified measurement - UI must label accordingly
+   */
+  proficiency: number;
   /** Featured skill */
   featured?: boolean;
 }

@@ -18,6 +18,19 @@ export interface Link {
   external?: boolean;
 }
 
+/**
+ * Social / contact link
+ * Only real, CV-supported links should be added
+ */
+export interface SocialLink {
+  label: string;
+  href: string;
+  /** Icon identifier for rendering */
+  icon: "github" | "linkedin" | "email" | "phone";
+  /** Whether the link opens in a new tab */
+  external: boolean;
+}
+
 export interface ImageAsset {
   src: string;
   alt: string;
