@@ -24,3 +24,17 @@ export interface AIFocusArea {
   /** Featured */
   featured?: boolean;
 }
+
+/**
+ * LLM API provider with CV-supported usage.
+ * Only providers explicitly present in the CV - no model names,
+ * no keys, no speculative providers.
+ */
+export interface AIProvider {
+  /** Provider name */
+  name: string;
+  /** Factual description of how it was used */
+  description: string;
+  /** Technical category label */
+  category: string;
+}

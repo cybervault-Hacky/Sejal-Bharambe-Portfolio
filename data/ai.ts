@@ -7,7 +7,17 @@
  * AI Project Manager role.
  */
 
-import type { AIFocusArea } from "@/types/ai";
+import type { AIFocusArea, AIProvider } from "@/types/ai";
+
+/**
+ * Section copy - factual, CV-supported
+ */
+export const aiSection = {
+  label: "AI Engineering",
+  title: "Building AI-powered software experiences.",
+  description:
+    "Experience across AI application development, LLM API integration, AI-assisted workflows and AI project management — with OpenAI and DeepSeek APIs in real product work.",
+} as const;
 
 export const aiFocusAreas: AIFocusArea[] = [
   {
@@ -53,3 +63,25 @@ export const featuredAiFocusAreas: AIFocusArea[] = aiFocusAreas.filter(
 
 export const getAiFocusAreaById = (id: string) =>
   aiFocusAreas.find((a) => a.id === id);
+
+/**
+ * LLM API providers with CV-supported experience.
+ * Wording stays factual - no model names, no metrics, no keys.
+ */
+export const aiProviders: AIProvider[] = [
+  {
+    name: "OpenAI",
+    category: "LLM API",
+    description:
+      "OpenAI APIs — used for developing AI-powered solutions and application experiences.",
+  },
+  {
+    name: "DeepSeek",
+    category: "LLM API",
+    description:
+      "DeepSeek APIs — used as part of AI-powered solution development.",
+  },
+];
+
+/** Slug of the AI project showcased in the section (Phase 6 route) */
+export const aiProjectSlug = "resumint";

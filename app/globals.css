@@ -476,3 +476,33 @@ body::before {
 .will-change-opacity {
   will-change: opacity;
 }
+
+/* AI workflow connector pulse - decorative, lightweight CSS animation */
+@keyframes ai-flow-pulse {
+  0% {
+    top: -6px;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    top: calc(100% - 6px);
+    opacity: 0;
+  }
+}
+
+.ai-flow-pulse {
+  top: 50%;
+  animation: ai-flow-pulse 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-flow-pulse {
+    animation: none;
+    opacity: 0.5;
+  }
+}

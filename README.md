@@ -2,7 +2,7 @@
 
 Premium portfolio website for **Software Developer + AI Engineer** with 2+ years of professional experience.
 
-> **Phase 6 — Advanced Projects & Experience Showcase** — Premium project showcase with featured treatment, accessible category filters, static case-study routes (`/projects/[slug]`) and an enhanced experience timeline. All content data-driven from `data/`, no invented facts.
+> **Phase 7 — AI Engineering & AI Agents Showcase** — Premium AI Engineering section: capability cards, conceptual integration flow, OpenAI/DeepSeek technical layer, Resumint AI project connection and AI Project Manager context. Data-driven from `data/ai.ts`, no fabricated AI claims, no API calls.
 
 ## Tech Stack
 
@@ -28,8 +28,9 @@ portfolio/
 │   └── projects/[slug]/   # Project case-study routes - SSG, data-driven, per-page metadata + not-found boundary
 ├── components/
 │   ├── layout/            # Header (scroll state + active nav), Footer, Navigation (active + mobile)
-│   ├── sections/          # Hero (3D integrated), About, Experience (timeline + expandable), Projects (featured + filters), AIEngineering, Skills, Education, Showcase3D (interactive), Contact
+│   ├── sections/          # Hero (3D integrated), About, Experience (timeline + expandable), Projects (featured + filters), AIEngineering (showcase), Skills, Education, Showcase3D (interactive), Contact
 │   ├── projects/          # ProjectVisual (monogram/image identity), ProjectCard (default/featured), ProjectFilters (accessible), ProjectDetail (case-study view)
+│   └── ai/                # AICapabilityCard, AIProviderCard, AIWorkflow (conceptual flow), AIProjectCard (Resumint connection)
 │   ├── ui/                # Button (primary/secondary/glass...), Card (glass/elevated/interactive), Badge, Container, Section, SectionHeading, GlassSurface, Divider, IconButton, Link, Background (AmbientGlow/Grid/Noise/GradientMesh)
 │   ├── motion/            # MotionProvider (Lenis single instance + reduced-motion), FadeIn, Reveal, Stagger, MotionSection, ScaleIn, SlideIn, Parallax, Magnetic, ScrollProgress, PageEntrance
 │   └── 3d/                # CanvasWrapper (client-only, DPR, WebGL check), HeroScene, ShowcaseScene, CoreObject (AI Engineering Core), TechOrbit (rings/nodes/lines), Lighting, CameraRig, PointerRig, ScrollRig, Environment, ModelLoader (GLB/GLTF), ModelPlaceholder, ErrorBoundary, LoadingFallback
@@ -131,6 +132,7 @@ Central precision object: geometric core + layered translucent shell + orbital r
 - **Experience:** company, role, focus (project context), startDate, endDate, description, achievements, technologies, type
 - **Skill:** name, category, proficiency (self-assessed 0-100), featured — grouped via `skillGroupOrder`
 - **AIFocusArea:** id, title, description, technologies, context — real AI work areas (replaces Phase 1 Agent placeholder; no invented agent names)
+- **AIProvider:** name, description, category — CV-supported LLM API experience only (OpenAI, DeepSeek); no model names, no keys
 - **Education / Certification / Achievement:** degrees, certifications and milestones
 - No fake data invented
 
@@ -179,7 +181,8 @@ Frontend-only, no backend/database/auth. Deployable to Vercel (recommended), Net
 - **Phase 4 — 3D Experience:** Three.js + R3F + Drei, isolated client-only canvas, WebGL detection/fallback/loading/error boundary, AI Engineering Core (icosahedron core + translucent shell + orbital rings + technical nodes + connection lines), materials Standard/Physical, lighting soft key/fill/rim/ambient, camera rig responsive smooth, pointer rig ±0.12 rad damping, scroll rig subtle, hero + showcase scenes, mobile reduction DPR 1.25 no pointer, reduced-motion static, performance budget, no post-processing, no generic template, matches visual language — COMPLETE
 - **Phase 5 — Content:** Real CV data — profile, hero, about, experience (4 roles), projects (Sophora, AquaBlouse, Resumint), AI Engineering (real work areas, OpenAI/DeepSeek APIs), skills (self-assessed proficiency), education, certifications, achievements, real contact + social links, SEO content foundation — COMPLETE
 - **Phase 6 — Advanced Projects & Experience Showcase:** Featured project treatment (Resumint), premium project cards (category/description/technology/capabilities), accessible category filters (All/AI/E-Learning/E-Commerce), static project case-study routes /projects/[slug] (metadata, prev/next, not-found boundary), ProjectVisual monogram system (image-ready), experience timeline with role markers + project context + expandable responsibilities, subroute-safe anchor navigation — COMPLETE
-- **Phase 7+ — NEXT:** AI engineering advanced functionality, resume system, contact service, final SEO/performance/a11y audits, production deployment
+- **Phase 7 — AI Engineering & AI Agents Showcase:** AI Engineering section redesign — headline + conceptual integration flow (CSS, reduced-motion aware), 4 capability cards with custom SVG icons, OpenAI/DeepSeek technical layer, Resumint AI project card (links to /projects/resumint), AI Project Manager current-role card (links to #experience, subroute-safe), data-driven from data/ai.ts — COMPLETE
+- **Phase 8+ — NEXT:** resume system, contact service, final SEO/performance/a11y audits, production deployment
 
 ## Accessibility
 
@@ -199,4 +202,4 @@ Private portfolio — All rights reserved.
 
 ---
 
-**Phase 6 Status:** Advanced project showcase and experience timeline integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Static SSG project routes (`/projects/sophora`, `/projects/aquablouse`, `/projects/resumint`), data-driven, no fabricated facts, no fake URLs or screenshots.
+**Phase 7 Status:** AI Engineering showcase integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Presentation only — no AI API calls, no API keys, no env changes, no backend. No fabricated AI claims (no model names, no invented agents, no metrics).
