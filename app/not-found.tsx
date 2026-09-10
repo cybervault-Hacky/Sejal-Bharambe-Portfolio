@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 
+export const metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: false },
+};
+
 export default function NotFound() {
   return (
     <Container className="flex min-h-[60vh] flex-col items-center justify-center py-16 text-center">

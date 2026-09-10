@@ -4,19 +4,12 @@ import * as React from "react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
+import { groupedSkills } from "@/data/skills";
 import { Stagger } from "@/components/motion/Stagger";
 import { Reveal } from "@/components/motion/Reveal";
 import { motion } from "framer-motion";
 import { motionTokens } from "@/lib/motion";
 import { useMotion } from "@/components/motion/MotionProvider";
-
-const skillGroups = [
-  { label: "Frontend", skills: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
-  { label: "Backend", skills: ["Node.js", "API Design", "System Architecture"] },
-  { label: "AI / ML", skills: ["AI Agents", "LangChain", "RAG", "LLMs"] },
-  { label: "Tools", skills: ["Git", "Docker", "Vercel", "Performance"] },
-];
 
 export function Skills() {
   const { isReducedMotion } = useMotion();
@@ -26,14 +19,14 @@ export function Skills() {
       <SectionHeading
         label="Skills"
         title="Technologies and tools I work with."
-        description="Grouped skills architecture with categories and levels. Real skills from CV will replace placeholders in content phase. No invented expertise."
+        description="Grouped by domain — languages, frontend, backend, databases, auth, cloud/devops and tools. Proficiency values are self-assessed."
         align="left"
       />
 
-      <Stagger staggerDelay={0.1} delay={0.2} className="mt-12 grid gap-6 md:grid-cols-2">
-        {skillGroups.map((group) => (
+      <Stagger staggerDelay={0.08} delay={0.2} className="mt-12 grid gap-6 md:grid-cols-2">
+        {groupedSkills.map((group) => (
           <motion.div
-            key={group.label}
+            key={group.category}
             whileHover={
               isReducedMotion
                 ? {}
@@ -49,35 +42,37 @@ export function Skills() {
                   {group.skills.length} skills
                 </span>
               </div>
-              <Stagger staggerDelay={0.05} delay={0.1} className="flex flex-wrap gap-2">
+              <ul className="space-y-2.5">
                 {group.skills.map((skill) => (
-                  <Badge key={skill} variant="secondary" size="default" className="group hover:border-[hsl(var(--border-strong))] transition-colors">
-                    <span className="h-1 w-1 rounded-full bg-[hsl(var(--foreground-tertiary))] group-hover:bg-[hsl(var(--foreground))] transition-colors" />
-                    {skill}
-                  </Badge>
+                  <li key={`${group.category}-${skill.name}`} className="flex items-center gap-3">
+                    <span className="flex-1 min-w-0 text-[13px] text-[hsl(var(--foreground-secondary))] truncate">
+                      {skill.name}
+                    </span>
+                    <span
+                      className="h-1 w-14 sm:w-20 rounded-full bg-[hsl(var(--surface-elevated))] overflow-hidden flex-shrink-0"
+                      aria-hidden="true"
+                    >
+                      <span
+                        className="block h-full rounded-full bg-[hsl(var(--foreground-tertiary))]"
+                        style={{ width: `${skill.proficiency}%` }}
+                      />
+                    </span>
+                    <span className="w-7 text-right text-[11px] font-mono text-[hsl(var(--foreground-tertiary))] flex-shrink-0">
+                      {skill.proficiency}
+                    </span>
+                  </li>
                 ))}
-              </Stagger>
+              </ul>
             </Card>
           </motion.div>
         ))}
       </Stagger>
 
       <Reveal delay={0.2}>
-        <Card variant="glass" className="mt-6 p-6">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h4 className="text-[14px] font-semibold text-[hsl(var(--foreground))]">Data-driven skill system</h4>
-              <p className="text-[13px] text-[hsl(var(--foreground-secondary))] mt-1">
-                Skills grouped by category, with levels and featured flags. Add via <code className="px-1 py-0.5 rounded bg-[hsl(var(--surface))] border border-[hsl(var(--border))] text-[11px] font-mono">data/skills.ts</code>
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Badge variant="technical" size="sm">Scalable</Badge>
-              <Badge variant="technical" size="sm">Filterable</Badge>
-              <Badge variant="technical" size="sm">Accessible</Badge>
-            </div>
-          </div>
-        </Card>
+        <p className="mt-6 text-[12px] leading-relaxed text-[hsl(var(--foreground-tertiary))]">
+          Proficiency values are self-assessed — a personal indicator, not a
+          standardized or certified measurement.
+        </p>
       </Reveal>
     </Section>
   );

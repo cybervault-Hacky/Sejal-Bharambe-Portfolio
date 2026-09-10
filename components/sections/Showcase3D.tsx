@@ -93,7 +93,7 @@ export function Showcase3D() {
             transition={{ duration: 0.2, ease: motionTokens.ease.out }}
           >
             <Card variant="default" className="p-6">
-              <h4 className="text-[13px] font-medium tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] mb-4">Architecture Highlights</h4>
+              <h3 className="text-[13px] font-medium tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] mb-4">Architecture Highlights</h3>
               <div className="space-y-4">
                 {[
                   { title: "AI Engineering Core", desc: "Central icosahedron + translucent shell + inner core, layered precision" },
@@ -119,7 +119,7 @@ export function Showcase3D() {
             transition={{ duration: 0.2, ease: motionTokens.ease.out }}
           >
             <Card variant="glass" className="p-6">
-              <h4 className="text-[13px] font-medium text-[hsl(var(--foreground))] mb-3">Performance Strategy</h4>
+              <h3 className="text-[13px] font-medium text-[hsl(var(--foreground))] mb-3">Performance Strategy</h3>
               <div className="space-y-3 text-[12px] leading-relaxed text-[hsl(var(--foreground-secondary))]">
                 <div className="flex justify-between py-1.5 border-b border-[hsl(var(--border-subtle))]">
                   <span className="text-[hsl(var(--foreground-tertiary))] uppercase tracking-wide text-[11px]">Geometry</span>

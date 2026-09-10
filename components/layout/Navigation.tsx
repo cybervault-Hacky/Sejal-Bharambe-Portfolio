@@ -2,8 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { navigationLinks } from "@/data/profile";
+import { resolveAnchorHash } from "@/lib/utils";
+import { navigationLinks, socialLinks, profile } from "@/data/profile";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMotion } from "@/components/motion/MotionProvider";
 import { motionTokens } from "@/lib/motion";
@@ -22,6 +24,7 @@ export function Navigation({
   activeSection = "home",
 }: NavigationProps) {
   const { isReducedMotion } = useMotion();
+  const pathname = usePathname();
 
   return (
     <nav
@@ -40,7 +43,7 @@ export function Navigation({
         return (
           <Link
             key={link.href}
-            href={link.href}
+            href={resolveAnchorHash(link.href, pathname)}
             onClick={onLinkClick}
             className={cn(
               "group relative inline-flex items-center rounded-[var(--radius-md)] px-3 py-2 text-[13px] font-medium tracking-[-0.01em] transition-all duration-200",
@@ -71,6 +74,25 @@ export function Navigation({
           </Link>
         );
       })}
+
+      {/* Resume CTA - only when a real resume asset exists */}
+      {profile.resume && (
+        <Link
+          href={profile.resume}
+          onClick={onLinkClick}
+          className={cn(
+            "group relative ml-1 inline-flex items-center gap-2 rounded-[var(--radius-md)] px-3 py-2 text-[13px] font-medium tracking-[-0.01em]",
+            "border-l border-l-[hsl(var(--border-subtle))] pl-4",
+            "text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--surface))]/80",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]"
+          )}
+        >
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Resume
+        </Link>
+      )}
     </nav>
   );
 }
@@ -84,6 +106,8 @@ export function MobileNavigation({
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const { isReducedMotion } = useMotion();
+  const pathname = usePathname();
+  const toggleRef = React.useRef<HTMLButtonElement>(null);
 
   // Prevent body scroll when menu open
   React.useEffect(() => {
@@ -97,9 +121,25 @@ export function MobileNavigation({
     };
   }, [isOpen]);
 
+  // Accessibility: Escape closes the menu and returns focus to the toggle
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
+
   return (
     <div className={cn("md:hidden", className)}>
       <motion.button
+        ref={toggleRef}
         whileTap={isReducedMotion ? {} : { scale: 0.95 }}
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}
@@ -192,7 +232,7 @@ export function MobileNavigation({
                       }}
                     >
                       <Link
-                        href={link.href}
+                        href={resolveAnchorHash(link.href, pathname)}
                         onClick={() => setIsOpen(false)}
                         className={cn(
                           "flex items-center justify-between rounded-[var(--radius-lg)] px-4 py-3 text-[20px] font-medium tracking-tight transition-colors",
@@ -210,6 +250,34 @@ export function MobileNavigation({
                     </motion.div>
                   );
                 })}
+
+                {/* Resume - only when a real resume asset exists */}
+                {profile.resume && (
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 12 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: isReducedMotion ? 0.01 : 0.4,
+                          ease: motionTokens.ease.out,
+                        },
+                      },
+                    }}
+                  >
+                    <a
+                      href={profile.resume}
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 rounded-[var(--radius-lg)] px-4 py-3 text-[16px] font-medium tracking-tight text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--surface))]/60 border-t border-[hsl(var(--border-subtle))] mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] w-full"
+                    >
+                      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <path d="M8 2v8M5 7l3 3 3-3M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      Resume
+                    </a>
+                  </motion.div>
+                )}
               </motion.div>
 
               <motion.div
@@ -221,14 +289,18 @@ export function MobileNavigation({
                 <p className="text-[11px] tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] font-medium mb-3">
                   Connect
                 </p>
-                <div className="flex gap-3">
-                  {["GitHub", "LinkedIn", "Email"].map((item) => (
-                    <span
-                      key={item}
-                      className="text-sm text-[hsl(var(--foreground-secondary))] px-3 py-1.5 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--surface))]"
+                <div className="flex flex-wrap gap-3">
+                  {socialLinks.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      target={item.external ? "_blank" : undefined}
+                      rel={item.external ? "noopener noreferrer" : undefined}
+                      className="text-sm text-[hsl(var(--foreground-secondary))] px-3 py-1.5 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--surface))] hover:text-[hsl(var(--foreground))] hover:border-[hsl(var(--border-strong))] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))]"
                     >
-                      {item}
-                    </span>
+                      {item.label}
+                    </a>
                   ))}
                 </div>
               </motion.div>

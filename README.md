@@ -2,7 +2,7 @@
 
 Premium portfolio website for **Software Developer + AI Engineer** with 2+ years of professional experience.
 
-> **Phase 4 — Premium 3D Interactive Experience** — Interactive engineering visualization with Three.js + R3F + Drei, integrated with premium UI and motion system.
+> **Phase 9 — SEO + Performance + Accessibility + Security Audit** — Production-readiness hardening: canonical/robots/sitemap, factual metadata (broken OG image reference removed), Person JSON-LD structured data, AA-safe contrast tokens, mobile-menu Escape/focus handling, safe security headers, `postcss` override eliminating all npm audit vulnerabilities (0 remaining). No new dependencies, no redesign, 3D untouched.
 
 ## Tech Stack
 
@@ -24,16 +24,20 @@ portfolio/
 │   ├── layout.tsx         # Root layout with MotionProvider + ScrollProgress + SEO
 │   ├── page.tsx           # Premium homepage with all sections
 │   ├── icon.svg           # Favicon
-│   └── not-found.tsx
+│   ├── not-found.tsx
+│   └── projects/[slug]/   # Project case-study routes - SSG, data-driven, per-page metadata + not-found boundary
 ├── components/
 │   ├── layout/            # Header (scroll state + active nav), Footer, Navigation (active + mobile)
-│   ├── sections/          # Hero (3D integrated), About, Experience, Projects, Agents, Skills, Showcase3D (interactive), Contact
+│   ├── sections/          # Hero (3D integrated), About, Experience (timeline + expandable), Projects (featured + filters), AIEngineering (showcase), Skills, Education, Showcase3D (interactive), Contact
+│   ├── projects/          # ProjectVisual (monogram/image identity), ProjectCard (default/featured), ProjectFilters (accessible), ProjectDetail (case-study view)
+│   ├── ai/                # AICapabilityCard, AIProviderCard, AIWorkflow (conceptual flow), AIProjectCard (Resumint connection)
+│   └── contact/           # ContactItem (reusable icon/label/value/action channel card), ResumeCard (facts + gated resume CTAs)
 │   ├── ui/                # Button (primary/secondary/glass...), Card (glass/elevated/interactive), Badge, Container, Section, SectionHeading, GlassSurface, Divider, IconButton, Link, Background (AmbientGlow/Grid/Noise/GradientMesh)
 │   ├── motion/            # MotionProvider (Lenis single instance + reduced-motion), FadeIn, Reveal, Stagger, MotionSection, ScaleIn, SlideIn, Parallax, Magnetic, ScrollProgress, PageEntrance
 │   └── 3d/                # CanvasWrapper (client-only, DPR, WebGL check), HeroScene, ShowcaseScene, CoreObject (AI Engineering Core), TechOrbit (rings/nodes/lines), Lighting, CameraRig, PointerRig, ScrollRig, Environment, ModelLoader (GLB/GLTF), ModelPlaceholder, ErrorBoundary, LoadingFallback
-├── data/                  # profile, projects, experience, skills, agents (TODO, no fake data)
+├── data/                  # profile, projects, experience, skills, ai, credentials (real CV data)
 ├── lib/                   # utils, constants, seo, motion tokens (duration/ease/spring/stagger/distance/scale + lenisConfig)
-├── types/                 # Strict interfaces: profile, project, experience, skill, agent
+├── types/                 # Strict interfaces: profile, project, experience, skill, ai, credentials, common (SocialLink)
 ├── public/
 │   ├── images/            # Portfolio images
 │   ├── models/            # GLB/GLTF models (architecture ready, no fake assets)
@@ -123,11 +127,14 @@ Central precision object: geometric core + layered translucent shell + orbital r
 
 ## Data Models
 
-- **Profile:** name, title, summary, location, email, github, linkedin, resume, yearsOfExperience (TODO)
-- **Project:** id, name, description, category, technologies, highlights, githubUrl, liveUrl, featured, image (TODO)
-- **Experience:** company, role, startDate, endDate, description, achievements, technologies (TODO)
-- **Skill:** name, category, icon, level (TODO)
-- **AI Agent:** id, name, description, capabilities, technologies, tools, architecture, githubUrl, liveUrl, featured (TODO)
+- **Profile:** name, title, titleSecondary, cvTitle, summary, location, email, phone, github, linkedin, resume (Phase 8), yearsOfExperience
+- **SiteMetadata / NavigationLinks / SocialLinks:** SEO, nav and real social links (GitHub, LinkedIn, Email)
+- **Project:** id (slug), name, label, description, category, technologies, capabilities, engineeringFocus, githubUrl, liveUrl, featured, image (optional - no fake screenshots), year, status
+- **Experience:** company, role, focus (project context), startDate, endDate, description, achievements, technologies, type
+- **Skill:** name, category, proficiency (self-assessed 0-100), featured — grouped via `skillGroupOrder`
+- **AIFocusArea:** id, title, description, technologies, context — real AI work areas (replaces Phase 1 Agent placeholder; no invented agent names)
+- **AIProvider:** name, description, category — CV-supported LLM API experience only (OpenAI, DeepSeek); no model names, no keys
+- **Education / Certification / Achievement:** degrees, certifications and milestones
 - No fake data invented
 
 ## Development Setup
@@ -172,9 +179,13 @@ Frontend-only, no backend/database/auth. Deployable to Vercel (recommended), Net
 - **Phase 1 — Foundation:** Next.js 15 + TS strict + Tailwind + ESLint + architecture + data models + SEO + a11y + responsive + performance principles — COMPLETE
 - **Phase 2 — Premium Visual System:** Dark-first near-black, glassmorphism strategic, typography hierarchy, color/spacing/container/border/shadow tokens, navigation/footer redesign, button/card/badge/section systems, hero foundation, background system (ambient glow/grid/noise/gradient mesh), micro-interactions, responsive, accessible — COMPLETE `b200066`
 - **Phase 3 — Animation & Interaction:** Framer Motion + Lenis, central motion architecture, page entrance, hero motion, section reveal, heading stagger, card stagger, project hover, glass depth, button micro-interactions, magnetic 4-8px, nav scroll state + active detection, mobile nav animation, scroll progress 1px, anchor scrolling, parallax -10→10, reduced-motion, mobile optimized, no layout shift — COMPLETE `ea6837e`
-- **Phase 4 — 3D Experience:** Three.js + R3F + Drei, isolated client-only canvas, WebGL detection/fallback/loading/error boundary, AI Engineering Core (icosahedron core + translucent shell + orbital rings + technical nodes + connection lines), materials Standard/Physical, lighting soft key/fill/rim/ambient, camera rig responsive smooth, pointer rig ±0.12 rad damping, scroll rig subtle, hero + showcase scenes, mobile reduction DPR 1.25 no pointer, reduced-motion static, performance budget, no post-processing, no generic template, matches visual language — CURRENT
-- **Phase 5 — Content:** Projects, experience, skills, agents from CV, resume, contact service — NEXT
-- **Phase 6 — Polish:** SEO, performance audit, a11y audit, analytics
+- **Phase 4 — 3D Experience:** Three.js + R3F + Drei, isolated client-only canvas, WebGL detection/fallback/loading/error boundary, AI Engineering Core (icosahedron core + translucent shell + orbital rings + technical nodes + connection lines), materials Standard/Physical, lighting soft key/fill/rim/ambient, camera rig responsive smooth, pointer rig ±0.12 rad damping, scroll rig subtle, hero + showcase scenes, mobile reduction DPR 1.25 no pointer, reduced-motion static, performance budget, no post-processing, no generic template, matches visual language — COMPLETE
+- **Phase 5 — Content:** Real CV data — profile, hero, about, experience (4 roles), projects (Sophora, AquaBlouse, Resumint), AI Engineering (real work areas, OpenAI/DeepSeek APIs), skills (self-assessed proficiency), education, certifications, achievements, real contact + social links, SEO content foundation — COMPLETE
+- **Phase 6 — Advanced Projects & Experience Showcase:** Featured project treatment (Resumint), premium project cards (category/description/technology/capabilities), accessible category filters (All/AI/E-Learning/E-Commerce), static project case-study routes /projects/[slug] (metadata, prev/next, not-found boundary), ProjectVisual monogram system (image-ready), experience timeline with role markers + project context + expandable responsibilities, subroute-safe anchor navigation — COMPLETE
+- **Phase 7 — AI Engineering & AI Agents Showcase:** AI Engineering section redesign — headline + conceptual integration flow (CSS, reduced-motion aware), 4 capability cards with custom SVG icons, OpenAI/DeepSeek technical layer, Resumint AI project card (links to /projects/resumint), AI Project Manager current-role card (links to #experience, subroute-safe), data-driven from data/ai.ts — COMPLETE
+- **Phase 8 — Premium Resume, Contact & Social Integration:** "Let's connect" contact experience — direct Email/Phone/LinkedIn/GitHub channels (mailto:/tel:/safe external links, semantic `<address>`, no form/backend), ResumeCard with centralized quick facts (current role, organization, education, location) and View/Download CTAs that render ONLY when a real resume PDF exists (drop the file into public/resume/ and set profile.resume), gated Resume link in desktop + mobile navigation, emoji icons replaced with custom SVG, no fabricated resume asset — COMPLETE
+- **Phase 9 — SEO + Performance + Accessibility + Security Audit:** unique factual titles/descriptions per route, canonical via relative paths against one centralized site URL, robots.txt + sitemap.xml (static, data-driven from projects), Person JSON-LD (facts only, no unverified site URL), broken OG-image references removed (no fake image), AA-safe contrast token adjustments, mobile menu Escape + focus return, safe security headers (nosniff/referrer/permissions-policy), postcss override → 0 npm audit vulnerabilities — COMPLETE
+- **Phase 10 — NEXT:** production certification + deployment (see Phase 10 requirements below)
 
 ## Accessibility
 
@@ -194,4 +205,10 @@ Private portfolio — All rights reserved.
 
 ---
 
-**Phase 4 Status:** 3D interactive experience complete, verified via `npm run dev`, `npm run build`, `npm run lint`, `npm audit`. Ready for Phase 5.
+**Phase 9 Status:** Production-readiness audit complete, verified via `npm run lint` (clean), `npm run build` (passes, robots.txt + sitemap.xml generated), `npm audit` (0 vulnerabilities). No new dependencies, no redesign, 3D architecture untouched, Phase 5–8 functionality preserved.
+
+### Phase 10 requirements (documented by Phase 9 audit)
+1. **Domain verification** — `SITE_CONFIG.url` (`https://sejalbharambe.dev`) is the single centralized site URL used by metadataBase/canonical/OG/sitemap, but ownership/liveness is NOT verified by repository evidence. Finalize/verify the production domain before deployment.
+2. **Branded OG image** — real 1200×630 asset for `og:image` (none exists; broken reference removed in Phase 9 rather than faking an image).
+3. **Production security headers** — Content-Security-Policy (with production chunk allowlisting), HSTS, and frame-ancestors strategy at the production host (deliberately not set in `next.config.ts` to avoid breaking dev/preview environments).
+4. **Real CV PDF** — drop into `public/resume/` and set `profile.resume` to activate the existing gated resume CTAs.

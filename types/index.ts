@@ -8,11 +8,14 @@ export * from "./profile";
 export * from "./project";
 export * from "./experience";
 export * from "./skill";
-export * from "./agent";
+export * from "./ai";
+export * from "./credentials";
 
 // Re-export for convenience
 export type { Profile, SiteMetadata } from "./profile";
 export type { Project, ProjectCategory, ProjectsData } from "./project";
 export type { Experience, ExperienceData } from "./experience";
-export type { Skill, SkillCategory, SkillLevel, SkillGroup, SkillsData } from "./skill";
-export type { Agent, AgentCapability, AgentArchitectureType, AgentsData } from "./agent";
+export type { Skill, SkillCategory, SkillGroup, SkillsData } from "./skill";
+export type { AIFocusArea } from "./ai";
+export type { Education, Certification, Achievement } from "./credentials";
+export type { SocialLink } from "./common";

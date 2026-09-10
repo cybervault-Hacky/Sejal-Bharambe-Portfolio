@@ -27,6 +27,31 @@ export function isExternalLink(href: string): boolean {
 }
 
 /**
+ * Resolve an in-page anchor hash for the given pathname.
+ * On the homepage keep "#section" (Lenis smooth-scroll handles it);
+ * on subroutes navigate to the homepage anchor "/#section" so
+ * hash navigation works from any page.
+ */
+export function resolveAnchorHash(hash: string, pathname: string): string {
+  if (!hash.startsWith("#")) return hash;
+  return pathname === "/" ? hash : `/${hash}`;
+}
+
+/**
+ * Derive a short display value from a link href.
+ * "https://www.linkedin.com/in/x" -> "linkedin.com/in/x"
+ * "mailto:a@b.com" -> "a@b.com"
+ * Keeps contact presentation data-driven from the centralized profile
+ * values instead of duplicating display strings in components.
+ */
+export function linkDisplayValue(href: string): string {
+  return href
+    .replace(/^mailto:/i, "")
+    .replace(/^https?:\/\//i, "")
+    .replace(/^www\./i, "");
+}
+
+/**
  * Delay utility for animation readiness
  */
 export function delay(ms: number): Promise<void> {

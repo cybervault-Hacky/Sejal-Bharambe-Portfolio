@@ -3,118 +3,106 @@
 import * as React from "react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Button } from "@/components/ui/Button";
-import { Reveal } from "@/components/motion/Reveal";
+import { projects, projectCategoryLabels, projectFilterOrder } from "@/data/projects";
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectFilters } from "@/components/projects/ProjectFilters";
+import type { ProjectFilterOption } from "@/components/projects/ProjectFilters";
+import type { ProjectCategory } from "@/types/project";
 import { Stagger } from "@/components/motion/Stagger";
 import { motion } from "framer-motion";
 import { motionTokens } from "@/lib/motion";
 import { useMotion } from "@/components/motion/MotionProvider";
 
+/** Filters derived from the real project categories present in the data */
+const buildFilterOptions = (): ProjectFilterOption[] => {
+  const options: ProjectFilterOption[] = [
+    { id: "all", label: "All", count: projects.length },
+  ];
+  for (const category of projectFilterOrder) {
+    if (!projects.some((p) => p.category === category)) continue;
+    options.push({
+      id: category,
+      label: projectCategoryLabels[category],
+      count: projects.filter((p) => p.category === category).length,
+    });
+  }
+  return options;
+};
+
 export function Projects() {
   const { isReducedMotion, isMobile } = useMotion();
+  const [filter, setFilter] = React.useState<string>("all");
+
+  const filterOptions = React.useMemo(buildFilterOptions, []);
+  const featuredProject = projects.find((p) => p.featured) ?? null;
+  const showFeatured = filter === "all" && featuredProject !== null;
+
+  const visibleProjects =
+    filter === "all"
+      ? projects
+      : projects.filter((p) => p.category === (filter as ProjectCategory));
+
+  const gridProjects = visibleProjects.filter((p) => !showFeatured || p !== featuredProject);
 
   return (
     <Section id="projects" spacing="lg" className="border-t border-[hsl(var(--border-subtle))]">
-      <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-        <SectionHeading
-          label="Projects"
-          title="Selected work — production applications and systems."
-          description="Scalable showcase ready. Projects added via data/projects.ts. Supports categories, featured, technologies, highlights, GitHub and live URLs."
-          className="mb-0"
+      <SectionHeading
+        label="Projects"
+        title="Featured projects — e-learning, e-commerce and AI."
+        description="Three products built end to end: a 3-role e-learning platform, a customized blouse ordering experience, and an AI resume builder with ATS optimization."
+        align="left"
+      />
+
+      <div className="mt-10">
+        <ProjectFilters
+          options={filterOptions}
+          active={filter}
+          onChange={setFilter}
         />
-        <Reveal delay={0.2} className="hidden md:block">
-          <Button variant="ghost" size="sm" className="w-fit">
-            View all projects
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Button>
-        </Reveal>
       </div>
 
-      <Stagger staggerDelay={0.1} delay={0.2} className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {[1, 2, 3].map((i) => (
+      <div className="mt-8 flex flex-col gap-6">
+        {/* Featured project treatment */}
+        {showFeatured && featuredProject && (
           <motion.div
-            key={i}
-            whileHover={
-              isReducedMotion || isMobile
-                ? {}
-                : {
-                    y: -4,
-                    scale: 1.01,
-                    transition: { duration: 0.25, ease: motionTokens.ease.out },
-                  }
-            }
-            whileTap={isReducedMotion ? {} : { scale: 0.99 }}
-            className="h-full"
+            initial={isReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{
+              duration: isReducedMotion ? 0.01 : 0.6,
+              ease: motionTokens.ease.out,
+            }}
           >
-            <Card variant="interactive" className="group flex flex-col p-0 overflow-hidden h-full">
-              {/* Image placeholder */}
-              <div className="relative aspect-[16/10] w-full bg-[hsl(var(--surface-elevated))] border-b border-[hsl(var(--border))] overflow-hidden">
-                <div className="absolute inset-0 grid-dot opacity-[0.04]" />
-                <div className="absolute inset-0 gradient-mesh opacity-30" />
-                <motion.div
-                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6"
-                  whileHover={isReducedMotion ? {} : { scale: 1.02 }}
-                  transition={{ duration: 0.4, ease: motionTokens.ease.out }}
-                >
-                  <div className="h-12 w-12 rounded-[var(--radius-lg)] bg-[hsl(var(--surface))] border border-[hsl(var(--border))] flex items-center justify-center shadow-[var(--shadow-sm)]">
-                    <span className="text-[14px] font-bold text-[hsl(var(--foreground-tertiary))]">{i}</span>
-                  </div>
-                  <span className="text-[11px] tracking-widest uppercase text-[hsl(var(--foreground-tertiary))] font-medium">Project Image • TODO</span>
-                </motion.div>
-                <div className="absolute top-3 left-3">
-                  <Badge variant="glass" size="sm">Featured</Badge>
-                </div>
-                <div className="absolute top-3 right-3">
-                  <Badge variant="secondary" size="sm">Full Stack</Badge>
-                </div>
-              </div>
-
-              <div className="flex flex-1 flex-col p-6">
-                <CardHeader className="p-0">
-                  <div className="flex items-start justify-between gap-3">
-                    <CardTitle className="text-[16px]">Project Name • TODO</CardTitle>
-                    <span className="text-[11px] text-[hsl(var(--foreground-tertiary))] font-mono">2024</span>
-                  </div>
-                  <CardDescription className="mt-2 line-clamp-2">
-                    Short description placeholder for project. Will contain real project details from CV/GitHub. Premium card with hover lift and glass effects.
-                  </CardDescription>
-                </CardHeader>
-
-                <CardContent className="p-0 pt-4">
-                  <div className="flex flex-wrap gap-1.5">
-                    {["Next.js", "TypeScript", "Tailwind", "AI"].map((tech) => (
-                      <Badge key={tech} variant="technical" size="sm">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-
-                <CardFooter className="p-0 pt-5 mt-auto">
-                  <div className="flex gap-2 w-full">
-                    <Button variant="secondary" size="sm" className="flex-1">
-                      GitHub
-                    </Button>
-                    <Button variant="ghost" size="sm" className="flex-1">
-                      Live Demo
-                    </Button>
-                  </div>
-                </CardFooter>
-              </div>
-            </Card>
+            <ProjectCard project={featuredProject} variant="featured" />
           </motion.div>
-        ))}
-      </Stagger>
+        )}
 
-      <Reveal delay={0.2} className="mt-8 flex justify-center md:hidden">
-        <Button variant="secondary" size="default" className="rounded-full">
-          View all projects
-        </Button>
-      </Reveal>
+        {/* Project grid */}
+        <Stagger
+          staggerDelay={0.1}
+          delay={showFeatured ? 0.3 : 0.2}
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          {gridProjects.map((project) => (
+            <motion.div
+              key={`${filter}-${project.id}`}
+              whileHover={
+                isReducedMotion || isMobile
+                  ? {}
+                  : {
+                      y: -4,
+                      scale: 1.01,
+                      transition: { duration: 0.25, ease: motionTokens.ease.out },
+                    }
+              }
+              whileTap={isReducedMotion ? {} : { scale: 0.99 }}
+              className="h-full"
+            >
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </Stagger>
+      </div>
     </Section>
   );
 }

@@ -9,33 +9,37 @@ export type ProjectCategory =
   | "backend"
   | "ai"
   | "ai-agent"
+  | "e-learning"
+  | "e-commerce"
   | "mobile"
   | "open-source"
   | "other";
 
 export interface Project {
-  /** Unique identifier - slug friendly */
+  /** Unique identifier - slug friendly, used for /projects/[slug] */
   id: string;
   /** Project display name */
   name: string;
-  /** Short description */
+  /** Display category label - e.g. "AI Resume Builder" (falls back to category label) */
+  label?: string;
+  /** Short factual description */
   description: string;
-  /** Long description for detail page (future) */
-  longDescription?: string;
   /** Category for filtering */
   category: ProjectCategory;
   /** Technologies used */
   technologies: string[];
-  /** Key highlights / bullet points */
-  highlights: string[];
-  /** GitHub repository URL */
+  /** Key capability tags - short, factual */
+  capabilities: string[];
+  /** Engineering focus areas - source-supported technical emphasis */
+  engineeringFocus: string[];
+  /** GitHub repository URL - only real URLs */
   githubUrl?: string;
-  /** Live deployment URL */
+  /** Live deployment URL - only real URLs */
   liveUrl?: string;
-  /** Featured on homepage */
+  /** Featured treatment on the homepage showcase */
   featured: boolean;
-  /** Image path - relative to /public/images */
-  image: string;
+  /** Image path - relative to /public/images. Optional - no fake screenshots */
+  image?: string;
   /** Optional additional images */
   images?: string[];
   /** Year or date string */

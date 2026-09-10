@@ -28,13 +28,13 @@
   /* Foreground - high contrast, readable */
   --foreground: 0 0% 98%;                   /* #fafafa - primary text */
   --foreground-secondary: 0 0% 72%;         /* #b8b8b8 - secondary text */
-  --foreground-tertiary: 0 0% 52%;          /* #858585 - tertiary */
+  --foreground-tertiary: 0 0% 55%;          /* #8c8c8c - tertiary (AA-safe on all glass surfaces, Phase 9) */
   --foreground-muted: 0 0% 42%;             /* #6b6b6b - muted */
 
   /* Muted */
   --muted: 0 0% 12%;                        /* #1f1f1f - muted bg */
   --muted-foreground: 0 0% 60%;             /* #999 - muted text */
-  --muted-foreground-secondary: 0 0% 45%;   /* #737373 */
+  --muted-foreground-secondary: 0 0% 55%;   /* #8c8c8c (AA-safe, Phase 9) */
 
   /* Border - subtle, elegant, not harsh */
   --border: 0 0% 14%;                       /* #242424 - default */

@@ -7,4 +7,5 @@ export * from "./profile";
 export * from "./projects";
 export * from "./experience";
 export * from "./skills";
-export * from "./agents";
+export * from "./ai";
+export * from "./credentials";

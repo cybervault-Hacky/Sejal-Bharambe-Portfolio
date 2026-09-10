@@ -8,6 +8,8 @@ export interface Experience {
   company: string;
   /** Role / Job title */
   role: string;
+  /** Project or context the role centered on - e.g. "SKArt" */
+  focus?: string;
   /** Start date - ISO or readable string e.g. "Jan 2023" */
   startDate: string;
   /** End date - "Present" if current */
