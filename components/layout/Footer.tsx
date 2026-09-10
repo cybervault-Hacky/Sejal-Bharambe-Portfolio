@@ -2,8 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { cn } from "@/lib/utils";
+import { resolveAnchorHash } from "@/lib/utils";
 import { profile, socialLinks, navigationLinks } from "@/data/profile";
 import { getCurrentRole } from "@/data/experience";
 import { motion } from "framer-motion";
@@ -19,6 +21,7 @@ export function Footer({ className }: FooterProps) {
   const currentYear = new Date().getFullYear();
   const currentRole = getCurrentRole();
   const { isReducedMotion } = useMotion();
+  const pathname = usePathname();
 
   const footerNav = navigationLinks.filter((link) => link.href !== "#home");
 
@@ -83,7 +86,7 @@ export function Footer({ className }: FooterProps) {
               {footerNav.map((link) => (
                 <Link
                   key={link.href}
-                  href={link.href}
+                  href={resolveAnchorHash(link.href, pathname)}
                   className="text-[14px] text-[hsl(var(--foreground-secondary))] hover:text-[hsl(var(--foreground))] transition-colors duration-200 w-fit link-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] rounded-sm"
                 >
                   {link.label}

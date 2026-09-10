@@ -2,7 +2,7 @@
 
 Premium portfolio website for **Software Developer + AI Engineer** with 2+ years of professional experience.
 
-> **Phase 5 — Real CV Data & Complete Portfolio Content** — Real profile, experience, projects, skills, education, certifications, achievements, AI engineering positioning and contact details, all data-driven from `data/`.
+> **Phase 6 — Advanced Projects & Experience Showcase** — Premium project showcase with featured treatment, accessible category filters, static case-study routes (`/projects/[slug]`) and an enhanced experience timeline. All content data-driven from `data/`, no invented facts.
 
 ## Tech Stack
 
@@ -24,10 +24,12 @@ portfolio/
 │   ├── layout.tsx         # Root layout with MotionProvider + ScrollProgress + SEO
 │   ├── page.tsx           # Premium homepage with all sections
 │   ├── icon.svg           # Favicon
-│   └── not-found.tsx
+│   ├── not-found.tsx
+│   └── projects/[slug]/   # Project case-study routes - SSG, data-driven, per-page metadata + not-found boundary
 ├── components/
 │   ├── layout/            # Header (scroll state + active nav), Footer, Navigation (active + mobile)
-│   ├── sections/          # Hero (3D integrated), About, Experience, Projects, AIEngineering, Skills, Education, Showcase3D (interactive), Contact
+│   ├── sections/          # Hero (3D integrated), About, Experience (timeline + expandable), Projects (featured + filters), AIEngineering, Skills, Education, Showcase3D (interactive), Contact
+│   ├── projects/          # ProjectVisual (monogram/image identity), ProjectCard (default/featured), ProjectFilters (accessible), ProjectDetail (case-study view)
 │   ├── ui/                # Button (primary/secondary/glass...), Card (glass/elevated/interactive), Badge, Container, Section, SectionHeading, GlassSurface, Divider, IconButton, Link, Background (AmbientGlow/Grid/Noise/GradientMesh)
 │   ├── motion/            # MotionProvider (Lenis single instance + reduced-motion), FadeIn, Reveal, Stagger, MotionSection, ScaleIn, SlideIn, Parallax, Magnetic, ScrollProgress, PageEntrance
 │   └── 3d/                # CanvasWrapper (client-only, DPR, WebGL check), HeroScene, ShowcaseScene, CoreObject (AI Engineering Core), TechOrbit (rings/nodes/lines), Lighting, CameraRig, PointerRig, ScrollRig, Environment, ModelLoader (GLB/GLTF), ModelPlaceholder, ErrorBoundary, LoadingFallback
@@ -125,7 +127,7 @@ Central precision object: geometric core + layered translucent shell + orbital r
 
 - **Profile:** name, title, titleSecondary, cvTitle, summary, location, email, phone, github, linkedin, resume (Phase 8), yearsOfExperience
 - **SiteMetadata / NavigationLinks / SocialLinks:** SEO, nav and real social links (GitHub, LinkedIn, Email)
-- **Project:** id, name, description, category, technologies, highlights, githubUrl, liveUrl, featured, image (optional - no fake screenshots), year, status
+- **Project:** id (slug), name, label, description, category, technologies, capabilities, engineeringFocus, githubUrl, liveUrl, featured, image (optional - no fake screenshots), year, status
 - **Experience:** company, role, focus (project context), startDate, endDate, description, achievements, technologies, type
 - **Skill:** name, category, proficiency (self-assessed 0-100), featured — grouped via `skillGroupOrder`
 - **AIFocusArea:** id, title, description, technologies, context — real AI work areas (replaces Phase 1 Agent placeholder; no invented agent names)
@@ -176,7 +178,8 @@ Frontend-only, no backend/database/auth. Deployable to Vercel (recommended), Net
 - **Phase 3 — Animation & Interaction:** Framer Motion + Lenis, central motion architecture, page entrance, hero motion, section reveal, heading stagger, card stagger, project hover, glass depth, button micro-interactions, magnetic 4-8px, nav scroll state + active detection, mobile nav animation, scroll progress 1px, anchor scrolling, parallax -10→10, reduced-motion, mobile optimized, no layout shift — COMPLETE `ea6837e`
 - **Phase 4 — 3D Experience:** Three.js + R3F + Drei, isolated client-only canvas, WebGL detection/fallback/loading/error boundary, AI Engineering Core (icosahedron core + translucent shell + orbital rings + technical nodes + connection lines), materials Standard/Physical, lighting soft key/fill/rim/ambient, camera rig responsive smooth, pointer rig ±0.12 rad damping, scroll rig subtle, hero + showcase scenes, mobile reduction DPR 1.25 no pointer, reduced-motion static, performance budget, no post-processing, no generic template, matches visual language — COMPLETE
 - **Phase 5 — Content:** Real CV data — profile, hero, about, experience (4 roles), projects (Sophora, AquaBlouse, Resumint), AI Engineering (real work areas, OpenAI/DeepSeek APIs), skills (self-assessed proficiency), education, certifications, achievements, real contact + social links, SEO content foundation — COMPLETE
-- **Phase 6 — Polish:** SEO, performance audit, a11y audit, analytics — NEXT
+- **Phase 6 — Advanced Projects & Experience Showcase:** Featured project treatment (Resumint), premium project cards (category/description/technology/capabilities), accessible category filters (All/AI/E-Learning/E-Commerce), static project case-study routes /projects/[slug] (metadata, prev/next, not-found boundary), ProjectVisual monogram system (image-ready), experience timeline with role markers + project context + expandable responsibilities, subroute-safe anchor navigation — COMPLETE
+- **Phase 7+ — NEXT:** AI engineering advanced functionality, resume system, contact service, final SEO/performance/a11y audits, production deployment
 
 ## Accessibility
 
@@ -196,4 +199,4 @@ Private portfolio — All rights reserved.
 
 ---
 
-**Phase 5 Status:** Real CV content integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Data-driven, no fabricated facts. Resume CTA architecture ready for the real CV PDF (Phase 8).
+**Phase 6 Status:** Advanced project showcase and experience timeline integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Static SSG project routes (`/projects/sophora`, `/projects/aquablouse`, `/projects/resumint`), data-driven, no fabricated facts, no fake URLs or screenshots.

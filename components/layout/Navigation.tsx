@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { resolveAnchorHash } from "@/lib/utils";
 import { navigationLinks, socialLinks } from "@/data/profile";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMotion } from "@/components/motion/MotionProvider";
@@ -22,6 +24,7 @@ export function Navigation({
   activeSection = "home",
 }: NavigationProps) {
   const { isReducedMotion } = useMotion();
+  const pathname = usePathname();
 
   return (
     <nav
@@ -40,7 +43,7 @@ export function Navigation({
         return (
           <Link
             key={link.href}
-            href={link.href}
+            href={resolveAnchorHash(link.href, pathname)}
             onClick={onLinkClick}
             className={cn(
               "group relative inline-flex items-center rounded-[var(--radius-md)] px-3 py-2 text-[13px] font-medium tracking-[-0.01em] transition-all duration-200",
@@ -84,6 +87,7 @@ export function MobileNavigation({
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const { isReducedMotion } = useMotion();
+  const pathname = usePathname();
 
   // Prevent body scroll when menu open
   React.useEffect(() => {
@@ -192,7 +196,7 @@ export function MobileNavigation({
                       }}
                     >
                       <Link
-                        href={link.href}
+                        href={resolveAnchorHash(link.href, pathname)}
                         onClick={() => setIsOpen(false)}
                         className={cn(
                           "flex items-center justify-between rounded-[var(--radius-lg)] px-4 py-3 text-[20px] font-medium tracking-tight transition-colors",

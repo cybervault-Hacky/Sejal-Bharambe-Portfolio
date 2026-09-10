@@ -3,10 +3,12 @@
 import * as React from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { usePathname } from "next/navigation";
 import { Navigation, MobileNavigation } from "./Navigation";
 import { ScrollProgressInHeader } from "@/components/motion/ScrollProgress";
 import { useActiveSection, useMotion } from "@/components/motion/MotionProvider";
 import { cn } from "@/lib/utils";
+import { resolveAnchorHash } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 export interface HeaderProps {
@@ -19,6 +21,7 @@ export function Header({ className }: HeaderProps) {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const activeSection = useActiveSection(sectionIds);
   const { isReducedMotion } = useMotion();
+  const pathname = usePathname();
 
   React.useEffect(() => {
     if (typeof window === "undefined") return;
@@ -58,7 +61,7 @@ export function Header({ className }: HeaderProps) {
       <Container className="flex h-[var(--header-height)] items-center justify-between">
         {/* Logo / Name */}
         <Link
-          href="#home"
+          href={resolveAnchorHash("#home", pathname)}
           className={cn(
             "group flex items-center gap-3 rounded-[var(--radius-md)]",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]",
@@ -92,7 +95,7 @@ export function Header({ className }: HeaderProps) {
             whileTap={isReducedMotion ? {} : { scale: 0.98 }}
           >
             <a
-              href="#contact"
+              href={resolveAnchorHash("#contact", pathname)}
               className="inline-flex h-8 items-center justify-center rounded-full px-5 text-[13px] font-medium bg-[hsl(var(--foreground))] text-[hsl(var(--background))] hover:bg-[hsl(var(--foreground))/90] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]"
             >
               Contact
@@ -103,7 +106,7 @@ export function Header({ className }: HeaderProps) {
         {/* Mobile */}
         <div className="flex md:hidden items-center gap-3">
           <a
-            href="#contact"
+            href={resolveAnchorHash("#contact", pathname)}
             className="inline-flex h-8 items-center justify-center rounded-full px-4 text-[12px] font-medium bg-[hsl(var(--foreground))] text-[hsl(var(--background))] hover:bg-[hsl(var(--foreground))/90] shadow-[var(--shadow-sm)] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--foreground))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]"
           >
             Contact

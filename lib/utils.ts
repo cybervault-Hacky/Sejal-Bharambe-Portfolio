@@ -27,6 +27,17 @@ export function isExternalLink(href: string): boolean {
 }
 
 /**
+ * Resolve an in-page anchor hash for the given pathname.
+ * On the homepage keep "#section" (Lenis smooth-scroll handles it);
+ * on subroutes navigate to the homepage anchor "/#section" so
+ * hash navigation works from any page.
+ */
+export function resolveAnchorHash(hash: string, pathname: string): string {
+  if (!hash.startsWith("#")) return hash;
+  return pathname === "/" ? hash : `/${hash}`;
+}
+
+/**
  * Delay utility for animation readiness
  */
 export function delay(ms: number): Promise<void> {
