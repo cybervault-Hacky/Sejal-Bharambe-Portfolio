@@ -1,10 +1,43 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { constructMetadata } from "@/lib/seo";
+import { profile } from "@/data/profile";
+import { getCurrentRole } from "@/data/experience";
+import { education } from "@/data/credentials";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
+
+/**
+ * Person structured data (JSON-LD) - factual, CV-supported only.
+ * Built from the centralized data layer; safely serialized with
+ * JSON.stringify (static object, no user input). The site URL is
+ * intentionally omitted until the production domain is finalized
+ * in Phase 10.
+ */
+function buildPersonJsonLd() {
+  const currentRole = getCurrentRole();
+  const topEducation = education[0];
+
+  const person: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.name,
+    description:
+      "Software Developer and AI Engineer - building full-stack and AI-powered applications.",
+    jobTitle: profile.cvTitle,
+    email: `mailto:${profile.email}`,
+    sameAs: [profile.github, profile.linkedin],
+  };
+  if (currentRole?.company) {
+    person.worksFor = { "@type": "Organization", name: currentRole.company };
+  }
+  if (topEducation?.institution) {
+    person.alumnusOf = { "@type": "CollegeOrUniversity", name: topEducation.institution };
+  }
+  return person;
+}
 
 // Using system font stack to avoid Google Fonts network dependency in build
 // Geist font will be added via local files or CDN in Phase 2 if needed
@@ -31,6 +64,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className="antialiased min-h-screen flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPersonJsonLd()) }}
+        />
         {/* Skip to content - accessibility */}
         <a
           href="#main-content"

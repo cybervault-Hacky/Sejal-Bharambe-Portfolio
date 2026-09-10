@@ -9,8 +9,10 @@ export const SITE_CONFIG = {
   title: "Sejal Bharambe — Software Developer + AI Engineer",
   description:
     "AI Project Manager and Full Stack Developer with 2+ years of experience building full-stack and AI-powered applications with Java, Spring Boot, React, Next.js and TypeScript.",
+  // Centralized site URL - single source for metadataBase, canonical,
+  // Open Graph and sitemap. NOTE: domain ownership/liveness is NOT verified
+  // in this repository; finalizing the production domain is a Phase 10 task.
   url: "https://sejalbharambe.dev",
-  ogImage: "/images/og-image.jpg",
   links: {
     github: "https://github.com/sejal-bharambe",
     linkedin: "https://www.linkedin.com/in/sejal-bharambe-5988a720b",

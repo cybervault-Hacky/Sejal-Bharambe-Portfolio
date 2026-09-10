@@ -2,7 +2,7 @@
 
 Premium portfolio website for **Software Developer + AI Engineer** with 2+ years of professional experience.
 
-> **Phase 8 — Premium Resume, Contact & Social Integration** — Professional "Let's connect" contact experience: direct email/phone/LinkedIn/GitHub channels (semantic `<address>`, no form, no backend), resume summary card with centralized facts and resume CTAs gated on a real asset, subroute-safe navigation. All contact data from the centralized profile values.
+> **Phase 9 — SEO + Performance + Accessibility + Security Audit** — Production-readiness hardening: canonical/robots/sitemap, factual metadata (broken OG image reference removed), Person JSON-LD structured data, AA-safe contrast tokens, mobile-menu Escape/focus handling, safe security headers, `postcss` override eliminating all npm audit vulnerabilities (0 remaining). No new dependencies, no redesign, 3D untouched.
 
 ## Tech Stack
 
@@ -184,7 +184,8 @@ Frontend-only, no backend/database/auth. Deployable to Vercel (recommended), Net
 - **Phase 6 — Advanced Projects & Experience Showcase:** Featured project treatment (Resumint), premium project cards (category/description/technology/capabilities), accessible category filters (All/AI/E-Learning/E-Commerce), static project case-study routes /projects/[slug] (metadata, prev/next, not-found boundary), ProjectVisual monogram system (image-ready), experience timeline with role markers + project context + expandable responsibilities, subroute-safe anchor navigation — COMPLETE
 - **Phase 7 — AI Engineering & AI Agents Showcase:** AI Engineering section redesign — headline + conceptual integration flow (CSS, reduced-motion aware), 4 capability cards with custom SVG icons, OpenAI/DeepSeek technical layer, Resumint AI project card (links to /projects/resumint), AI Project Manager current-role card (links to #experience, subroute-safe), data-driven from data/ai.ts — COMPLETE
 - **Phase 8 — Premium Resume, Contact & Social Integration:** "Let's connect" contact experience — direct Email/Phone/LinkedIn/GitHub channels (mailto:/tel:/safe external links, semantic `<address>`, no form/backend), ResumeCard with centralized quick facts (current role, organization, education, location) and View/Download CTAs that render ONLY when a real resume PDF exists (drop the file into public/resume/ and set profile.resume), gated Resume link in desktop + mobile navigation, emoji icons replaced with custom SVG, no fabricated resume asset — COMPLETE
-- **Phase 9+ — NEXT:** final SEO/performance/a11y audits, production deployment
+- **Phase 9 — SEO + Performance + Accessibility + Security Audit:** unique factual titles/descriptions per route, canonical via relative paths against one centralized site URL, robots.txt + sitemap.xml (static, data-driven from projects), Person JSON-LD (facts only, no unverified site URL), broken OG-image references removed (no fake image), AA-safe contrast token adjustments, mobile menu Escape + focus return, safe security headers (nosniff/referrer/permissions-policy), postcss override → 0 npm audit vulnerabilities — COMPLETE
+- **Phase 10 — NEXT:** production certification + deployment (see Phase 10 requirements below)
 
 ## Accessibility
 
@@ -204,4 +205,10 @@ Private portfolio — All rights reserved.
 
 ---
 
-**Phase 8 Status:** Resume/Contact/Social experience integrated, verified via `npm run dev`, `npm run build`, `npm run lint`. Direct links only — no contact form, no backend, no social APIs. No fake resume file created; resume CTAs are gated on `profile.resume` (currently unset, UI ready for the real CV PDF in `public/resume/`).
+**Phase 9 Status:** Production-readiness audit complete, verified via `npm run lint` (clean), `npm run build` (passes, robots.txt + sitemap.xml generated), `npm audit` (0 vulnerabilities). No new dependencies, no redesign, 3D architecture untouched, Phase 5–8 functionality preserved.
+
+### Phase 10 requirements (documented by Phase 9 audit)
+1. **Domain verification** — `SITE_CONFIG.url` (`https://sejalbharambe.dev`) is the single centralized site URL used by metadataBase/canonical/OG/sitemap, but ownership/liveness is NOT verified by repository evidence. Finalize/verify the production domain before deployment.
+2. **Branded OG image** — real 1200×630 asset for `og:image` (none exists; broken reference removed in Phase 9 rather than faking an image).
+3. **Production security headers** — Content-Security-Policy (with production chunk allowlisting), HSTS, and frame-ancestors strategy at the production host (deliberately not set in `next.config.ts` to avoid breaking dev/preview environments).
+4. **Real CV PDF** — drop into `public/resume/` and set `profile.resume` to activate the existing gated resume CTAs.

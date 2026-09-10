@@ -5,6 +5,11 @@ import { Container } from "@/components/ui/Container";
  * Project not-found boundary for /projects/[slug]
  * Clean design-system treatment - no framework errors exposed
  */
+export const metadata = {
+  title: "Project not found",
+  robots: { index: false, follow: false },
+};
+
 export default function ProjectNotFound() {
   return (
     <Container className="flex min-h-[50vh] flex-col items-center justify-center py-16 text-center">

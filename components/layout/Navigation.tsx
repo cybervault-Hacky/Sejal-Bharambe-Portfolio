@@ -107,6 +107,7 @@ export function MobileNavigation({
   const [isOpen, setIsOpen] = React.useState(false);
   const { isReducedMotion } = useMotion();
   const pathname = usePathname();
+  const toggleRef = React.useRef<HTMLButtonElement>(null);
 
   // Prevent body scroll when menu open
   React.useEffect(() => {
@@ -120,9 +121,25 @@ export function MobileNavigation({
     };
   }, [isOpen]);
 
+  // Accessibility: Escape closes the menu and returns focus to the toggle
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [isOpen]);
+
   return (
     <div className={cn("md:hidden", className)}>
       <motion.button
+        ref={toggleRef}
         whileTap={isReducedMotion ? {} : { scale: 0.95 }}
         aria-label={isOpen ? "Close menu" : "Open menu"}
         aria-expanded={isOpen}

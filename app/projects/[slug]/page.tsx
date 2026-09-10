@@ -32,6 +32,7 @@ export async function generateMetadata({
   return constructMetadata({
     title: `${project.name} — ${label}`,
     description: project.description,
+    canonicalPath: `/projects/${project.id}`,
   });
 }
 
